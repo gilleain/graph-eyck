@@ -27,7 +27,7 @@ public class GraphSketcher implements Sketcher<Graph, IDiagramElement> {
 		
 		IDiagramElement root = new ElementList();
 		for (Point2D p : rep.getPoints()) {
-			root.add(new CircleElement(new Point2d(p.getX(), p.getY()), 10));
+			root.add(new CircleElement(new Point2d(p.getX(), p.getY()), 2));
 		}
 		return root;
 	}
