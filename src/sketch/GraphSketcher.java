@@ -7,13 +7,17 @@ import javax.vecmath.Point2d;
 
 import layout.GraphLayout;
 import model.Graph;
+import planar.Block;
+import planar.Edge;
 import planar.GraphEmbedder;
 import planar.GraphEmbedding;
+import planar.Vertex;
 import sketcher.Sketcher;
 import core.AbstractArtist;
 import diagram.element.CircleElement;
 import diagram.element.ElementList;
 import diagram.element.IDiagramElement;
+import diagram.element.LineElement;
 import draw.ParameterSet;
 import draw.Representation;
 
@@ -29,11 +33,34 @@ public class GraphSketcher extends AbstractArtist implements Sketcher<Graph, IDi
 		Rectangle2D canvas = new Rectangle2D.Double(0, 0, 300, 300);
 		Representation rep = layout.layout(embedding, canvas);
 		
-		IDiagramElement root = new ElementList();
+		ElementList root = new ElementList();
 		for (Point2D p : rep.getPoints()) {
 			root.add(new CircleElement(new Point2d(p.getX(), p.getY()), 1));
 		}
+		
+		// TODO : FIXME this is terrible!
+		for (Block tree : embedding.getTreeParts()) {
+			getEdges(tree, root, rep);
+		}
+		for (Block block : embedding.getBlockParts()) {
+			getEdges(block, root, rep);
+		}
 		return root;
+	}
+	
+	private void getEdges(Block block, ElementList root, Representation rep) {
+		for (Edge e : block.getEdges()) {
+			Vertex a = rep.getVertex(e.getA().getIndex());
+			Vertex b = rep.getVertex(e.getB().getIndex());
+			Point2d pA = point2Point(rep.getPoint(a));
+			Point2d pB = point2Point(rep.getPoint(b));
+			root.add(new LineElement(pA, pB));
+		}
+	}
+	
+	// THIS IS FOOLISHNESS
+	private Point2d point2Point(Point2D p) {
+		return new Point2d(p.getX(), p.getY());
 	}
 
 }
