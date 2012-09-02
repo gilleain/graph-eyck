@@ -10,24 +10,28 @@ import model.Graph;
 import planar.GraphEmbedder;
 import planar.GraphEmbedding;
 import sketcher.Sketcher;
+import core.AbstractArtist;
 import diagram.element.CircleElement;
 import diagram.element.ElementList;
 import diagram.element.IDiagramElement;
 import draw.ParameterSet;
 import draw.Representation;
 
-public class GraphSketcher implements Sketcher<Graph, IDiagramElement> {
+public class GraphSketcher extends AbstractArtist implements Sketcher<Graph, IDiagramElement> {
 
 	@Override
 	public IDiagramElement sketch(Graph graph) {
-		GraphLayout layout = new GraphLayout(new ParameterSet());
+		ParameterSet params = new ParameterSet();
+		params.set("edgeLength", 20);
+		GraphLayout layout = new GraphLayout(params);
 		GraphEmbedding embedding = GraphEmbedder.embed(graph);
 		// TODO : remove representation class?
-		Representation rep = layout.layout(embedding, new Rectangle2D.Double(-10, -10, 10, 10));
+		Rectangle2D canvas = new Rectangle2D.Double(0, 0, 300, 300);
+		Representation rep = layout.layout(embedding, canvas);
 		
 		IDiagramElement root = new ElementList();
 		for (Point2D p : rep.getPoints()) {
-			root.add(new CircleElement(new Point2d(p.getX(), p.getY()), 2));
+			root.add(new CircleElement(new Point2d(p.getX(), p.getY()), 1));
 		}
 		return root;
 	}
