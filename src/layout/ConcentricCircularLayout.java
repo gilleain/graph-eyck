@@ -16,7 +16,7 @@ import planar.Face;
 import planar.Vertex;
 import draw.Representation;
 
-public class ConcentricCircularLayout implements Layout {
+public class ConcentricCircularLayout implements BlockLayout {
 	
 	public Representation layout(BlockEmbedding embedding, Rectangle2D canvas) {
 	    return layout(embedding, null, null, canvas);

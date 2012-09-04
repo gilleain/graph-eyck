@@ -7,7 +7,7 @@ import planar.BlockEmbedding;
 import planar.Vertex;
 import draw.Representation;
 
-public interface Layout {
+public interface BlockLayout {
 	
 	public Representation layout(BlockEmbedding em, Rectangle2D canvas);
 	

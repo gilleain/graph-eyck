@@ -22,7 +22,7 @@ import draw.Representation;
  * @author maclean
  *
  */
-public class OuterplanarLayout implements Layout {
+public class OuterplanarLayout implements BlockLayout {
     
     public static final double START_ANGLE = Math.toRadians(270);
     

@@ -10,7 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import layout.ConcentricCircularLayout;
-import layout.Layout;
+import layout.BlockLayout;
 import layout.PlestenjakRefiner;
 import layout.Refiner;
 import planar.BlockEmbedding;
@@ -47,7 +47,7 @@ public abstract class AbstractDrawingTest {
 	}
 	
 	public void draw(
-            BlockEmbedding em, int w, int h, String filename, Colorer colorer, Layout layout) throws IOException {
+            BlockEmbedding em, int w, int h, String filename, Colorer colorer, BlockLayout layout) throws IOException {
 	    ParameterSet params = new ParameterSet();
 	    params.set("lineWidth", 2);
 	    params.set("pointRadius", 4);
@@ -55,7 +55,7 @@ public abstract class AbstractDrawingTest {
 	}
 	
 	public void draw(BlockEmbedding em, int w, int h, String filename, 
-	                 Colorer colorer, Layout layout, Refiner refiner, ParameterSet params) throws IOException {
+	                 Colorer colorer, BlockLayout layout, Refiner refiner, ParameterSet params) throws IOException {
 		int border = 20;
 		int ww = w + (2 * border);
 		int hh = h + (2 * border);
