@@ -26,6 +26,11 @@ public class CircleLayout implements SimpleLayout {
 		this.params = params;
 	}
 	
+	@Override
+	public ParameterSet getParameters() {
+		return params;
+	}
+
 	public Representation layout(Graph graph, Rectangle2D canvas) {
 		Representation repr = new Representation();
 		double border = params.get("border");

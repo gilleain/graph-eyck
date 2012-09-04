@@ -6,6 +6,8 @@ import java.awt.geom.Rectangle2D;
 
 import javax.vecmath.Point2d;
 
+import layout.GraphLayout;
+import layout.SimpleLayout;
 import model.Graph;
 import renderer.AbstractRenderer;
 import sketch.GraphSketcher;
@@ -21,7 +23,11 @@ public class GraphRenderer extends AbstractRenderer<Graph> {
 	private Graphics g;	// TMP FIXME
 	
 	public GraphRenderer(Graphics g) {
-		setSketcher(new GraphSketcher());
+		this(g, new GraphLayout());
+	}
+	
+    public GraphRenderer(Graphics g, SimpleLayout layout) {
+		setSketcher(new GraphSketcher(layout));
 		setPainter(new BasicAWTPainter(g));
 		this.g = g;
 	}

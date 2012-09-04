@@ -29,7 +29,12 @@ public class RadialTreeLayout implements SimpleLayout {
         this.params = params;
     }
 
-    public Representation layout(Graph tree, Rectangle2D canvas) {
+    @Override
+	public ParameterSet getParameters() {
+		return params;
+	}
+
+	public Representation layout(Graph tree, Rectangle2D canvas) {
     	Representation representation = new Representation();
         Point2D centerPoint = new Point2D.Double(canvas.getCenterX(), canvas.getCenterY());
         List<Integer> centerIndices = TreeCenterFinder.findCenter(tree);

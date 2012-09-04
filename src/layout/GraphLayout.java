@@ -15,15 +15,31 @@ import tree.TreeCenterFinder;
 import draw.ParameterSet;
 import draw.Representation;
 
-public class GraphLayout {
+/**
+ * Layout a graph by finding all the blocks (biconnected components) and the tree-like parts
+ * and laying these out as parts.
+ * 
+ * @author maclean
+ *
+ */
+public class GraphLayout implements SimpleLayout {
     
     private ParameterSet params;
+    
+    public GraphLayout() {
+    	this(new ParameterSet());
+    }
     
     public GraphLayout(ParameterSet params) {
         this.params = params;
     }
     
-    public Representation layout(Graph graph, Rectangle2D canvas) {
+    @Override
+	public ParameterSet getParameters() {
+		return params;
+	}
+
+	public Representation layout(Graph graph, Rectangle2D canvas) {
     	return layout(GraphEmbedder.embed(graph), canvas);
     }
     

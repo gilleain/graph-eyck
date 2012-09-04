@@ -10,9 +10,12 @@ import model.Graph;
 import planar.Edge;
 import planar.Vertex;
 import tree.TreeCenterFinder;
+import draw.ParameterSet;
 import draw.Representation;
 
 public class TopDownTreeLayout implements SimpleLayout {
+	
+	private ParameterSet params;
     
     private int totalLeafCount;
     
@@ -25,6 +28,18 @@ public class TopDownTreeLayout implements SimpleLayout {
     private double height;
     
     private Representation representation;
+    
+    public TopDownTreeLayout() {
+    	this(new ParameterSet());
+    }
+    
+    public TopDownTreeLayout(ParameterSet params) {
+    	this.params = params;
+    }
+    
+    public ParameterSet getParameters() {
+    	return params;
+    }
     
     public Representation layout(Graph tree, Rectangle2D canvas) {
         representation = new Representation();
