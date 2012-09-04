@@ -8,6 +8,7 @@ import java.util.List;
 import model.Graph;
 import planar.Block;
 import planar.BlockEmbedding;
+import planar.GraphEmbedder;
 import planar.GraphEmbedding;
 import planar.Vertex;
 import tree.TreeCenterFinder;
@@ -20,6 +21,10 @@ public class GraphLayout {
     
     public GraphLayout(ParameterSet params) {
         this.params = params;
+    }
+    
+    public Representation layout(Graph graph, Rectangle2D canvas) {
+    	return layout(GraphEmbedder.embed(graph), canvas);
     }
     
     public Representation layout(GraphEmbedding embedding, Rectangle2D canvas) {
@@ -44,8 +49,9 @@ public class GraphLayout {
     }
     
     private void layout(GraphEmbedding embedding, Representation rep,
-                        Graph partTree, int partIndex, int parentIndex, Vertex articulationVertex,
-                        Point2D partCenter, BitSet laidOut, Rectangle2D canvas) {
+                        Graph partTree, int partIndex, int parentIndex,
+                        Vertex articulationVertex, Point2D partCenter, 
+                        BitSet laidOut, Rectangle2D canvas) {
         Block part = embedding.getPart(partIndex);
         Point2D p = rep.getPoint(articulationVertex);
         boolean isTreePart = embedding.isTreePart(partIndex); 
@@ -75,7 +81,7 @@ public class GraphLayout {
             if (articulationVertex == null) {
                 rep.add(layout.layout(blockEmbedding, blockCanvas));
             } else {
-                rep.add(layout.layout(blockEmbedding, articulationVertex, p, blockCanvas));
+            	rep.add(layout.layout(blockEmbedding, articulationVertex, p, blockCanvas));
             }
         }
         laidOut.set(partIndex);

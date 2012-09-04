@@ -30,7 +30,7 @@ public class RadialTreeLayout implements SimpleLayout {
     }
 
     public Representation layout(Graph tree, Rectangle2D canvas) {
-        Representation representation = new Representation();
+    	Representation representation = new Representation();
         Point2D centerPoint = new Point2D.Double(canvas.getCenterX(), canvas.getCenterY());
         List<Integer> centerIndices = TreeCenterFinder.findCenter(tree);
         if (centerIndices.size() == 1) {
@@ -88,8 +88,8 @@ public class RadialTreeLayout implements SimpleLayout {
 //            System.out.println("current angle " + Math.round(Math.toDegrees(currentAngle)) + 
 //                               " for " + neighbour);
             Point2D nextPoint = makeNextPoint(ppV, currentAngle);
-            representation.addLine(new Edge(pV, new Vertex(neighbour)), 
-                                   new Line2D.Double(ppV, nextPoint));
+            representation.addLine(
+            		new Edge(pV, new Vertex(neighbour)), new Line2D.Double(ppV, nextPoint));
             layout(tree, neighbour, index, nextPoint, representation);
         }
     }

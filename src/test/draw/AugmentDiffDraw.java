@@ -17,8 +17,6 @@ import model.GraphFileReader;
 
 import org.junit.Test;
 
-import planar.GraphEmbedder;
-import planar.GraphEmbedding;
 import draw.ParameterSet;
 import draw.Representation;
 
@@ -29,7 +27,6 @@ public class AugmentDiffDraw extends BaseDrawTest {
     public static final String OUT_DIR = "output/diff/img";
     
     public void drawGraph(Graph g, int w, int h, int edgeLen, boolean drawNumbers, String subdir, String filename) throws IOException {
-        GraphEmbedding ge = GraphEmbedder.embed(g);
         ParameterSet params = new ParameterSet();
         params.set("edgeLength", edgeLen);
         params.set("pointRadius", 5);
@@ -41,7 +38,7 @@ public class AugmentDiffDraw extends BaseDrawTest {
         }
         
         GraphLayout layout = new GraphLayout(params);
-        Representation rep = layout.layout(ge, new Rectangle2D.Double(0, 0, w, h));
+        Representation rep = layout.layout(g, new Rectangle2D.Double(0, 0, w, h));
         rep.centerOn(w / 2, h / 2);
         Image image = makeBlankImage(w, h);
         Graphics2D graphics = (Graphics2D) image.getGraphics();

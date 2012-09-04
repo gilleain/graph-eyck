@@ -13,8 +13,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.vecmath.Point2d;
+
 import planar.Edge;
 import planar.Vertex;
+import diagram.element.CircleElement;
+import diagram.element.ElementList;
+import diagram.element.IDiagramElement;
+import diagram.element.LineElement;
 
 
 
@@ -33,6 +39,24 @@ public class Representation {
 	public Representation() {
 		this.points = new HashMap<Vertex, Point2D>();
 		this.lines = new HashMap<Edge, Line2D>();
+	}
+	
+	public IDiagramElement getDiagram() {
+		// XXX for now, construct from scratch...
+		IDiagramElement root = new ElementList();
+		for (Point2D p : points.values()) {
+			root.add(new CircleElement(new Point2d(p.getX(), p.getY()), 1));
+		}
+		for (Line2D line : lines.values()) {
+			Point2d pA = point2Point(line.getP1());
+			Point2d pB = point2Point(line.getP2());
+			root.add(new LineElement(pA, pB));
+		}
+		return root;
+	}
+	
+	private Point2d point2Point(Point2D p) {
+		return new Point2d(p.getX(), p.getY());
 	}
 	
 	public void addPoint(Vertex vertex, Point2D point) {

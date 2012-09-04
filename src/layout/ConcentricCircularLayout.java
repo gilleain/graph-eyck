@@ -63,7 +63,6 @@ public class ConcentricCircularLayout implements Layout {
             }
         }
         
-//        representation.addPoint(new Vertex(99), new Point2D.Double(cx, cy));
         return representation;
     }
 
