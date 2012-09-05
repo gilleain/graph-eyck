@@ -17,8 +17,8 @@ import model.GraphFileReader;
 
 import org.junit.Test;
 
+import render.GraphRenderer;
 import draw.ParameterSet;
-import draw.Representation;
 
 public class GraphLayoutTest extends BaseDrawTest {
     
@@ -41,13 +41,13 @@ public class GraphLayoutTest extends BaseDrawTest {
             params.set("drawNumberLabels", 0);
         }
         
-        GraphLayout layout = new GraphLayout(params);
-        Representation rep = layout.layout(g, new Rectangle2D.Double(0, 0, w, h));
-        rep.centerOn(w / 2, h / 2);
         Image image = makeBlankImage(w, h);
         Graphics2D graphics = (Graphics2D) image.getGraphics();
         graphics.setColor(Color.BLACK);
-        rep.draw(graphics, params);
+        GraphLayout layout = new GraphLayout(params);
+        GraphRenderer renderer = new GraphRenderer(graphics, layout);
+        Rectangle2D canvas = new Rectangle2D.Double(0, 0, w, h);
+        renderer.render(g, canvas);
         ImageIO.write((RenderedImage) image, "PNG", getFile(new File(OUT_DIR, subdir), filename));
     }
     

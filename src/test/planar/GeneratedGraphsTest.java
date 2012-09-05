@@ -17,6 +17,7 @@ import org.junit.Test;
 import planar.BlockEmbedding;
 import planar.PlanarBlockEmbedder;
 import draw.Drawing;
+import draw.ParameterSet;
 
 public class GeneratedGraphsTest {
 	
@@ -36,7 +37,7 @@ public class GeneratedGraphsTest {
 				System.out.println("no embedding for graph " + i + " = " + graph);
 			} else {
 				System.out.println("embedding for graph " + i + " = " + graph);
-				Drawing drawing = new Drawing(em, new ConcentricCircularLayout());
+				Drawing drawing = new Drawing(em, new ConcentricCircularLayout(new ParameterSet()));
 				BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_GRAY);
 				Graphics2D g = (Graphics2D) image.getGraphics();
 				g.setColor(Color.WHITE);

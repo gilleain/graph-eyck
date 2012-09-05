@@ -6,9 +6,11 @@ import java.awt.geom.Rectangle2D;
 import java.util.Map;
 
 import layout.BlockLayout;
+import layout.NullLayout;
 import layout.Refiner;
 import planar.BlockEmbedding;
 import planar.Vertex;
+import render.GraphRenderer;
 
 public class Drawing {
 	
@@ -53,11 +55,15 @@ public class Drawing {
 		if (colorer != null) {
 			colorMap = colorer.getColors(embedding);
 		}
+		
+		// TODO color
 		if (refiner != null) {
 			Representation refined = refiner.refine(representation, embedding);
-			refined.draw(g, params, colorMap);
+			GraphRenderer renderer = new GraphRenderer(g, new NullLayout(refined));
+			renderer.render(null, canvas);
 		} else {
-			representation.draw(g, params, colorMap);
+			GraphRenderer renderer = new GraphRenderer(g, new NullLayout(representation));
+			renderer.render(null, canvas);
 		}
 	}
 	

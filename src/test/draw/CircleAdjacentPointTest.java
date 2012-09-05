@@ -19,6 +19,7 @@ import org.junit.Test;
 import planar.BlockEmbedding;
 import planar.PlanarBlockEmbedder;
 import planar.Vertex;
+import render.GraphRenderer;
 import draw.ParameterSet;
 import draw.Representation;
 
@@ -33,7 +34,7 @@ public class CircleAdjacentPointTest extends BaseDrawTest {
         int cw = 200;
         int ch = 200;
         Graph circle = new Graph("0:1,1:2,2:3,3:4,4:5,5:6,6:0");
-        ConcentricCircularLayout layout = new ConcentricCircularLayout();
+        ConcentricCircularLayout layout = new ConcentricCircularLayout(new ParameterSet());
         BlockEmbedding em = PlanarBlockEmbedder.embed(circle);
         Representation rep = layout.layout(em, new Rectangle2D.Double(cw / 2, ch / 2, cw, ch));
         int count = rep.getVertices().size();
@@ -51,7 +52,8 @@ public class CircleAdjacentPointTest extends BaseDrawTest {
         Image image = makeBlankImage(w, h);
         Graphics2D g = (Graphics2D) image.getGraphics();
         g.setColor(Color.BLACK);
-        rep.draw(g, params);
+        GraphRenderer renderer = new GraphRenderer(g, layout);
+        renderer.render(circle, new Rectangle2D.Double(cw / 2, ch / 2, cw, ch));
         ImageIO.write((RenderedImage) image, "PNG", getFile(OUT_DIR, "test.png"));
     }
 

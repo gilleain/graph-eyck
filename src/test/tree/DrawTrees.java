@@ -1,7 +1,7 @@
 package test.tree;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -22,9 +22,9 @@ import model.GraphFileReader;
 import org.junit.Test;
 
 import planar.Vertex;
+import render.GraphRenderer;
 import tree.TreeCenterFinder;
 import draw.ParameterSet;
-import draw.Representation;
 
 public class DrawTrees {
 	
@@ -48,11 +48,11 @@ public class DrawTrees {
 		int count = 0;
 		String prefix = inputFilename.substring(0, inputFilename.length() - 4);
 		for (Graph tree : file) {
-			Representation repr = layout.layout(tree, canvas);
 			File outFile = new File(dir, prefix + "_tree" + count + ".png");
 			Image image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-			image.getGraphics().setColor(Color.WHITE);
-			image.getGraphics().fillRect(0, 0, w, h);
+			Graphics graphics = image.getGraphics();
+			graphics.setColor(Color.WHITE);
+			graphics.fillRect(0, 0, w, h);
 			Map<Vertex, Color> colorMap = new HashMap<Vertex, Color>();
 			List<Integer> center = TreeCenterFinder.findCenter(tree);
 			for (int i = 0; i < tree.getVertexCount(); i++) {
@@ -62,7 +62,9 @@ public class DrawTrees {
 					colorMap.put(new Vertex(i), Color.BLACK);
 				}
 			}
-			repr.draw((Graphics2D)image.getGraphics(), params, colorMap);
+			graphics.setColor(Color.BLACK);
+			GraphRenderer renderer = new GraphRenderer(graphics, layout);
+			renderer.render(tree, canvas);	//	XXX - color 
 			ImageIO.write((RenderedImage)image, "PNG", outFile);
 			count++;
 		}

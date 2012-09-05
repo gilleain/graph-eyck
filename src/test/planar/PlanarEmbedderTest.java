@@ -16,6 +16,7 @@ import org.junit.Test;
 import planar.BlockEmbedding;
 import planar.PlanarBlockEmbedder;
 import draw.Drawing;
+import draw.ParameterSet;
 
 public class PlanarEmbedderTest {
 	
@@ -31,7 +32,7 @@ public class PlanarEmbedderTest {
 			File outDir = new File(OUT_DIR);
 			if (!outDir.exists()) { outDir.mkdir(); }
 			
-			Drawing drawing = new Drawing(em, new ConcentricCircularLayout());
+			Drawing drawing = new Drawing(em, new ConcentricCircularLayout(new ParameterSet()));
 			BufferedImage image = new BufferedImage(W, H, BufferedImage.TYPE_BYTE_GRAY);
 			Graphics2D g = (Graphics2D) image.getGraphics();
 			g.setColor(Color.WHITE);

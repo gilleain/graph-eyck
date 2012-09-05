@@ -71,10 +71,6 @@ public class Representation {
 		this.lines.put(edge, line);
 	}
 	
-	public void draw(Graphics2D g, ParameterSet params) {
-		draw(g, params, null);
-	}
-
 	public List<Point2D> getPoints() {
 		return new ArrayList<Point2D>(points.values());
 	}
@@ -106,53 +102,57 @@ public class Representation {
 	    }
 	}
 
-	public void draw(Graphics2D g, ParameterSet parameterSet, Map<Vertex, Color> colorMap) {
-	    draw(g, parameterSet, colorMap, null);
-	}
-	
-	public void draw(Graphics2D g, ParameterSet parameterSet, Map<Vertex, Color> vertexColorMap, Map<Edge, Color> edgeColorMap) {
-		double width = parameterSet.get("lineWidth");
-		if (width != 1) {
-			g.setStroke(new BasicStroke((float) width));
-		}
-		for (Edge edge : lines.keySet()) {
-		    Line2D line = lines.get(edge);
-		    Color savedColor = g.getColor();
-		    Stroke savedStroke = g.getStroke();
-		    if (edgeColorMap != null && edgeColorMap.containsKey(edge)) {
-		        Color color = edgeColorMap.get(edge);
-		        if (color != null) {
-		            g.setStroke(new BasicStroke(3));
-		            g.setColor(color);
-		        }
-		    }
-		    g.draw(line);
-		    g.setColor(savedColor);
-		    g.setStroke(savedStroke);
-		}
-		
-		double pointRadius = parameterSet.get("pointRadius");
-		boolean drawNumberLabels = parameterSet.get("drawNumberLabels") == 1; 
-		double d = pointRadius * 2;
-		for (Vertex vertex : points.keySet()) {
-			Point2D point = points.get(vertex);
-			double x = point.getX() - pointRadius;
-			double y = point.getY() - pointRadius;
-			if (vertexColorMap != null) {
-				Color color = vertexColorMap.get(vertex);
-				if (color != null) {
-					g.setColor(color);
-				}
-			}
-			g.fill(new Ellipse2D.Double(x, y, d, d));
-			
-			if (drawNumberLabels) {
-    			g.setColor(Color.BLACK);
-    			g.drawString(String.valueOf(vertex.getIndex()), (int)x, (int)y);
-			}
-		}
-		
-	}
+//	public void draw(Graphics2D g, ParameterSet params) {
+//		draw(g, params, null);
+//	}
+//
+//	public void draw(Graphics2D g, ParameterSet parameterSet, Map<Vertex, Color> colorMap) {
+//	    draw(g, parameterSet, colorMap, null);
+//	}
+//	
+//	public void draw(Graphics2D g, ParameterSet parameterSet, Map<Vertex, Color> vertexColorMap, Map<Edge, Color> edgeColorMap) {
+//		double width = parameterSet.get("lineWidth");
+//		if (width != 1) {
+//			g.setStroke(new BasicStroke((float) width));
+//		}
+//		for (Edge edge : lines.keySet()) {
+//		    Line2D line = lines.get(edge);
+//		    Color savedColor = g.getColor();
+//		    Stroke savedStroke = g.getStroke();
+//		    if (edgeColorMap != null && edgeColorMap.containsKey(edge)) {
+//		        Color color = edgeColorMap.get(edge);
+//		        if (color != null) {
+//		            g.setStroke(new BasicStroke(3));
+//		            g.setColor(color);
+//		        }
+//		    }
+//		    g.draw(line);
+//		    g.setColor(savedColor);
+//		    g.setStroke(savedStroke);
+//		}
+//		
+//		double pointRadius = parameterSet.get("pointRadius");
+//		boolean drawNumberLabels = parameterSet.get("drawNumberLabels") == 1; 
+//		double d = pointRadius * 2;
+//		for (Vertex vertex : points.keySet()) {
+//			Point2D point = points.get(vertex);
+//			double x = point.getX() - pointRadius;
+//			double y = point.getY() - pointRadius;
+//			if (vertexColorMap != null) {
+//				Color color = vertexColorMap.get(vertex);
+//				if (color != null) {
+//					g.setColor(color);
+//				}
+//			}
+//			g.fill(new Ellipse2D.Double(x, y, d, d));
+//			
+//			if (drawNumberLabels) {
+//    			g.setColor(Color.BLACK);
+//    			g.drawString(String.valueOf(vertex.getIndex()), (int)x, (int)y);
+//			}
+//		}
+//		
+//	}
 
 	public List<Vertex> getVertices() {
 		return new ArrayList<Vertex>(points.keySet());

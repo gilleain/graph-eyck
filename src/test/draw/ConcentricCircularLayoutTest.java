@@ -14,26 +14,24 @@ import model.Graph;
 
 import org.junit.Test;
 
-import planar.BlockEmbedding;
-import planar.PlanarBlockEmbedder;
+import render.GraphRenderer;
 import draw.ParameterSet;
-import draw.Representation;
 
 public class ConcentricCircularLayoutTest extends BaseDrawTest {
     
     public static final String OUT_DIR = "output/planar/concentric";
     
     public void test(Graph g, int w, int h, String filename) throws IOException {
-        BlockEmbedding be = PlanarBlockEmbedder.embed(g);
-        ConcentricCircularLayout layout = new ConcentricCircularLayout();
-        Representation rep = layout.layout(be, new Rectangle2D.Double(0, 0, w, h));
         ParameterSet params = new ParameterSet();
         params.set("lineWidth", 2);
         params.set("pointRadius", 5);
+        ConcentricCircularLayout layout = new ConcentricCircularLayout(params);
         Image image = makeBlankImage(w, h);
+        Rectangle2D canvas = new Rectangle2D.Double(0, 0, w, h);
         Graphics2D graphics = (Graphics2D) image.getGraphics();
         graphics.setColor(Color.BLACK);
-        rep.draw(graphics, params);
+        GraphRenderer renderer = new GraphRenderer(graphics, layout);
+        renderer.render(g, canvas);
         ImageIO.write((RenderedImage) image, "PNG", getFile(OUT_DIR, filename));
     }
     

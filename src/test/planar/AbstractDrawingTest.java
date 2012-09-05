@@ -62,7 +62,7 @@ public abstract class AbstractDrawingTest {
 		Rectangle2D canvas = new Rectangle2D.Double(border, border, w, h);
 		Drawing drawing;
 		if (layout == null) {
-		    layout = new ConcentricCircularLayout();
+		    layout = new ConcentricCircularLayout(params);
 		}
 		// TODO : fix the combinations of null refiners/colorers/layouts...
 		if (colorer == null) {

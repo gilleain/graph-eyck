@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import layout.NullLayout;
 import macrocycle.HexLattice;
 import macrocycle.TriangleLattice;
 import model.Graph;
@@ -33,6 +35,7 @@ import planar.PlanarBlockEmbedder;
 import planar.SpanningTree;
 import planar.Vertex;
 import planar.visitor.ConnectedComponentFinder;
+import render.GraphRenderer;
 
 import combinatorics.SubsetLister;
 
@@ -346,7 +349,8 @@ public class HexLatticeCyclesTest extends LatticeTest {
         draw(lattice, 3, 2, g);
         
         g.setColor(Color.RED);
-        rep.draw(g, params);
+        GraphRenderer renderer = new GraphRenderer(g, new NullLayout(rep));
+        renderer.render(null, new Rectangle2D.Double(0, 0, w, h));
         
 //        g.setColor(Color.GREEN);
 //        g.draw(makePolygon(lattice, cycle));

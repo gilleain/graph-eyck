@@ -11,11 +11,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import layout.NullLayout;
 import macrocycle.FlowerLayout;
 import macrocycle.FlowerPartitionGenerator;
 
 import org.junit.Test;
 
+import render.GraphRenderer;
 import draw.ParameterSet;
 import draw.Representation;
 
@@ -42,9 +44,10 @@ public class FlowerDrawTest {
             File outFile = new File(dir, name + "_" + filenameRoot + ".png");
             BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g = (Graphics2D)image.getGraphics();
+            GraphRenderer renderer = new GraphRenderer(g, new NullLayout(representation));
             g.setColor(Color.WHITE);
             g.fillRect(0, 0, w, h);
-            representation.draw(g, params);
+            renderer.render(null, canvas);
             ImageIO.write(image, "PNG", outFile);
         }
     }

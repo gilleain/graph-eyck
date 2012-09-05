@@ -1,6 +1,6 @@
 package test.draw;
 
-import java.awt.Graphics2D;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.RenderedImage;
@@ -16,8 +16,8 @@ import model.GraphFileReader;
 
 import org.junit.Test;
 
+import render.GraphRenderer;
 import draw.ParameterSet;
-import draw.Representation;
 
 public class CircleLayoutTest extends BaseDrawTest {
 	
@@ -25,10 +25,14 @@ public class CircleLayoutTest extends BaseDrawTest {
 		ParameterSet params = new ParameterSet();
 		params.set("border", 10);
 		params.set("pointRadius", 3);
-		CircleLayout layout = new CircleLayout(params);
-		Representation repr = layout.layout(graph, new Rectangle2D.Double(0, 0, w, h));
 		Image image = makeBlankImage(w, h);
-		repr.draw((Graphics2D)image.getGraphics(), params);
+		Graphics g = image.getGraphics();
+		
+		CircleLayout layout = new CircleLayout(params);
+		GraphRenderer renderer = new GraphRenderer(g, layout);
+		Rectangle2D canvas = new Rectangle2D.Double(0, 0, w, h);
+		renderer.render(graph, canvas);
+		
 		ImageIO.write((RenderedImage)image, "PNG", new File(filename));
 	}
 	

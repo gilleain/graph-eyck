@@ -23,9 +23,9 @@ import model.GraphFileReader;
 import org.junit.Test;
 
 import planar.Vertex;
+import render.GraphRenderer;
 import tree.TreeCenterFinder;
 import draw.ParameterSet;
-import draw.Representation;
 
 public class RadialTreeLayoutTest {
     
@@ -50,15 +50,15 @@ public class RadialTreeLayoutTest {
         int w = 800;
         int h = 400;
         ParameterSet params = getParams();
-        RadialTreeLayout layout = new RadialTreeLayout(params);
-        Representation r = layout.layout(tree, new Rectangle2D.Double(0, 0, w, h));
-        System.out.println(r);
         BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_4BYTE_ABGR);
         Graphics2D g = (Graphics2D)image.getGraphics();
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, w, h);
         g.setColor(Color.BLACK);
-        r.draw(g, params);
+        RadialTreeLayout layout = new RadialTreeLayout(params);
+        GraphRenderer renderer = new GraphRenderer(g, layout);
+        Rectangle2D canvas = new Rectangle2D.Double(0, 0, w, h);
+        renderer.render(tree, canvas);
         ImageIO.write(image, "PNG", new File(dir, filename));
     }
     
@@ -87,7 +87,6 @@ public class RadialTreeLayoutTest {
         int count = 0;
         String prefix = inputFilename.substring(0, inputFilename.length() - 4);
         for (Graph tree : file) {
-            Representation repr = layout.layout(tree, canvas);
             String name = prefix + "_tree" + count;
             System.out.println("drawing " + tree + " to " + name);
             File outFile = new File(dir, name + ".png");
@@ -96,6 +95,7 @@ public class RadialTreeLayoutTest {
             g.setColor(Color.WHITE);
             g.fillRect(0, 0, w, h);
             g.setColor(Color.BLACK);
+            GraphRenderer renderer = new GraphRenderer(g, layout);
             Map<Vertex, Color> colorMap = new HashMap<Vertex, Color>();
             List<Integer> center = TreeCenterFinder.findCenter(tree);
             for (int i = 0; i < tree.getVertexCount(); i++) {
@@ -105,7 +105,7 @@ public class RadialTreeLayoutTest {
                     colorMap.put(new Vertex(i), Color.BLACK);
                 }
             }
-            repr.draw(g, getParams(), colorMap);
+            renderer.render(tree, canvas);	// XXX - color map!
             ImageIO.write((RenderedImage)image, "PNG", outFile);
             count++;
         }

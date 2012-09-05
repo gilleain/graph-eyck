@@ -42,7 +42,7 @@ public class SignatureGraphTests extends AbstractDrawingTest {
         params.set("pointRadius", 4);
         draw(embedding, 600, 600, filename, 
                 new SignatureColorer(),
-                new ConcentricCircularLayout(),
+                new ConcentricCircularLayout(params),
                 new PlestenjakRefiner(new Rectangle2D.Double(0,0,600,600)),
                 params);
 	}

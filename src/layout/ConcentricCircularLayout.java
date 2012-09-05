@@ -10,14 +10,34 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import model.Graph;
+
 import planar.BlockEmbedding;
 import planar.Edge;
 import planar.Face;
+import planar.PlanarBlockEmbedder;
 import planar.Vertex;
+import draw.ParameterSet;
 import draw.Representation;
 
-public class ConcentricCircularLayout implements BlockLayout {
+public class ConcentricCircularLayout implements BlockLayout, SimpleLayout {
 	
+	private ParameterSet params;
+	
+	public ConcentricCircularLayout(ParameterSet params) {
+		this.params = params;
+	}
+	
+	@Override
+	public Representation layout(Graph graph, Rectangle2D canvas) {
+		return layout(PlanarBlockEmbedder.embed(graph), canvas);
+	}
+
+	@Override
+	public ParameterSet getParameters() {
+		return params;
+	}
+
 	public Representation layout(BlockEmbedding embedding, Rectangle2D canvas) {
 	    return layout(embedding, null, null, canvas);
 	}

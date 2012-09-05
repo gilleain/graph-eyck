@@ -92,7 +92,7 @@ public class GraphLayout implements SimpleLayout {
             double y = partCenter.getY() - r;
             Rectangle2D blockCanvas = new Rectangle2D.Double(x, y, 2 * r, 2 * r);
 //            System.out.println("canvas for block " + partIndex + " " + blockCanvas);
-            ConcentricCircularLayout layout = new ConcentricCircularLayout();
+            ConcentricCircularLayout layout = new ConcentricCircularLayout(params);
             BlockEmbedding blockEmbedding = embedding.getBlockPart(partIndex); 
             if (articulationVertex == null) {
                 rep.add(layout.layout(blockEmbedding, blockCanvas));
