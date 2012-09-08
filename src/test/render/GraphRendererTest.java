@@ -6,7 +6,6 @@ import java.awt.Image;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -16,8 +15,11 @@ import model.Graph;
 import org.junit.Test;
 
 import render.GraphRenderer;
+import test.draw.BaseDrawTest;
 
-public class GraphRendererTest {
+public class GraphRendererTest extends BaseDrawTest {
+	
+	public static final String OUT_DIR = "output/render";
 	
 	public Image getImage(int w, int h) {
 		return new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
@@ -35,7 +37,7 @@ public class GraphRendererTest {
 		GraphRenderer renderer = new GraphRenderer(g);
 		renderer.render(graph, new Rectangle2D.Double(0, 0, w, h));
 //		renderer.render(graph, new Point2d(w/2, h/2));
-		ImageIO.write((RenderedImage)img, "PNG", new File("test.png"));
+		ImageIO.write((RenderedImage)img, "PNG", getFile(OUT_DIR, "circle.png"));
 	}
 
 }
