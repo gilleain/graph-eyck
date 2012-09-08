@@ -15,8 +15,7 @@ import sketch.GraphSketcher;
 import sketcher.Sketcher;
 import awt.ListAWTPainter;
 import diagram.element.IDiagramElement;
-import divide.LinearDivider;
-
+import divide.IDivider;
 
 /**
  * Render a list of graphs.
@@ -27,6 +26,8 @@ import divide.LinearDivider;
 public class GraphListRenderer  {
 	
 	private ILayout canvasLayout;
+	
+	private IDivider canvasDivider;
 	
 	private Sketcher<List<Graph>, List<IDiagramElement>> listSketcher;
 	
@@ -44,8 +45,7 @@ public class GraphListRenderer  {
 	
 	public void render(List<Graph> graphs, Rectangle2D canvas) {
 		List<IDiagramElement> diagrams = listSketcher.sketch(graphs);
-		// XXX divider shouldn't be created here, but in the constructor
-		painter.paint(diagrams, canvas, new LinearDivider(diagrams.size()));	
+		painter.paint(diagrams, canvas, canvasDivider);	
 	}
 
 	public void render(List<Graph> graphs, Point2d center) {
