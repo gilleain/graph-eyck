@@ -1,36 +1,53 @@
 package render;
 
+import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 import javax.vecmath.Point2d;
 
-import listlayout.ListLayout;
+import layout.GraphLayout;
+import listlayout.CanvasLayout;
+import listlayout.GridCanvasLayout;
 import model.Graph;
-import renderer.AbstractRenderer;
-import draw.Representation;
+import sketch.GraphListSketcher;
+import sketch.GraphSketcher;
+import sketcher.Sketcher;
+import awt.BasicAWTPainter;
+import awt.CompositeAWTPainter;
+import diagram.element.IDiagramElement;
 
 
-public class GraphListRenderer extends AbstractRenderer<List<Graph>> {
+/**
+ * Render a list of graphs.
+ * 
+ * @author maclean
+ *
+ */
+public class GraphListRenderer  {
 	
-	private ListLayout listLayout;
+	private CanvasLayout canvasLayout;
 	
-	public GraphListRenderer() {
-		
+	private Sketcher<List<Graph>, List<IDiagramElement>> listSketcher;
+	
+	private CompositeAWTPainter painter;
+	
+	public GraphListRenderer(Graphics graphics) {
+		this(new GridCanvasLayout(), graphics);
 	}
 	
-	public GraphListRenderer(ListLayout listLayout) {
-		this.listLayout = listLayout;
+	public GraphListRenderer(CanvasLayout canvasLayout, Graphics graphics) {
+		this.canvasLayout = canvasLayout;
+		this.listSketcher = new GraphListSketcher(new GraphSketcher(new GraphLayout()));
+		this.painter = new CompositeAWTPainter(graphics);
 	}
 	
-	@Override
 	public void render(List<Graph> graphs, Rectangle2D canvas) {
-		Representation rep = listLayout.layout(graphs, canvas);
+		List<IDiagramElement> diagrams = listSketcher.sketch(graphs);
 	}
 
-	@Override
 	public void render(List<Graph> graphs, Point2d center) {
-		Representation rep = listLayout.layout(graphs, center);
+		List<IDiagramElement> diagrams = listSketcher.sketch(graphs);
 		
 	}
 
