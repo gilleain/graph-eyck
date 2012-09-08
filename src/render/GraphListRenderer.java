@@ -43,6 +43,12 @@ public class GraphListRenderer  {
 		this.painter = new ListAWTPainter(graphics);
 	}
 	
+	public GraphListRenderer(IDivider canvasDivider, Graphics graphics) {
+		this.canvasDivider = canvasDivider;
+		this.listSketcher = new GraphListSketcher(new GraphSketcher(new GraphLayout()));
+		this.painter = new ListAWTPainter(graphics);
+	}
+	
 	public void render(List<Graph> graphs, Rectangle2D canvas) {
 		List<IDiagramElement> diagrams = listSketcher.sketch(graphs);
 		painter.paint(diagrams, canvas, canvasDivider);	
