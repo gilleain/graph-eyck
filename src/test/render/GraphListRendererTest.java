@@ -20,6 +20,7 @@ import org.junit.Test;
 
 import render.GraphListRenderer;
 import test.draw.BaseDrawTest;
+import divide.GridDivider;
 import divide.IDivider;
 import divide.LinearDivider;
 
@@ -70,5 +71,12 @@ public class GraphListRendererTest extends BaseDrawTest {
 		int w = 400;
 		int h = 150;
 		standardTestSet(w, h, new LinearDivider(), null, "graph_list_linear_divider.png");
+	}
+	
+	@Test
+	public void gridDividerTest() throws IOException {
+		int w = 400;
+		int h = 400;
+		standardTestSet(w, h, new GridDivider(), null, "graph_list_grid_divider.png");
 	}
 }
