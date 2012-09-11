@@ -11,7 +11,7 @@ import sketcher.Sketcher;
 import diagram.element.IDiagramElement;
 import draw.Representation;
 
-public class MetagraphSketcher implements Sketcher<Metagraph, IDiagramElement> {
+public class MetagraphSketcher implements Sketcher<Metagraph, List<IDiagramElement>> {
 	
 	private SimpleLayout topLevelLayout;
 	
@@ -23,7 +23,7 @@ public class MetagraphSketcher implements Sketcher<Metagraph, IDiagramElement> {
 	}
 
 	@Override
-	public IDiagramElement sketch(Metagraph metagraph) {
+	public List<IDiagramElement> sketch(Metagraph metagraph) {
 		Graph metagraphGraph = metagraph.getMetagraph();
 		List<IDiagramElement> diagrams = new ArrayList<IDiagramElement>();
 		Representation topLevelRep = topLevelLayout.layout(metagraphGraph, new Rectangle2D.Double(0, 0, 100, 100));
@@ -32,7 +32,7 @@ public class MetagraphSketcher implements Sketcher<Metagraph, IDiagramElement> {
 			Representation subRep = subLevelLayout.layout(subgraph, new Rectangle2D.Double(0, 0, 100, 100));
 			diagrams.add(subRep.getDiagram());
 		}
-		return null;
+		return diagrams;
 	}
 
 }
