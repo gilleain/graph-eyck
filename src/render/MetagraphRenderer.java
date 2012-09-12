@@ -6,13 +6,18 @@ import java.util.List;
 
 import javax.vecmath.Point2d;
 
+import layout.GraphLayout;
+import layout.RadialTreeLayout;
+import model.Graph;
 import model.Metagraph;
 import renderer.AbstractRenderer;
+import sketch.MetagraphSketcher;
 import sketcher.Sketcher;
 import awt.ListAWTPainter;
 import diagram.DiagramTransformer;
 import diagram.element.IDiagramElement;
 import divide.GraphDivider;
+import draw.ParameterSet;
 
 public class MetagraphRenderer extends AbstractRenderer<Metagraph> {
 	
@@ -22,6 +27,13 @@ public class MetagraphRenderer extends AbstractRenderer<Metagraph> {
 	
 	public MetagraphRenderer(Graphics graphics) {
 		painter = new ListAWTPainter(graphics);
+		metagraphSketcher = new MetagraphSketcher(new RadialTreeLayout(getParams()), new GraphLayout());
+	}
+	
+	private ParameterSet getParams() {
+		ParameterSet params = new ParameterSet();
+		params.set("edgeLength", 20);
+		return params;
 	}
 
 	@Override
@@ -32,7 +44,8 @@ public class MetagraphRenderer extends AbstractRenderer<Metagraph> {
 		IDiagramElement metagraphDiagram = diagrams.get(0);	// XXX
 		DiagramTransformer.scaleToFit(metagraphDiagram, canvas);
 		
-		painter.paint(diagrams, canvas, new GraphDivider(metagraph.getMetagraph()));
+		Graph topLevelGraph = metagraph.getMetagraph();
+		painter.paint(diagrams, canvas, new GraphDivider(topLevelGraph, metagraphDiagram));
 	}
 
 	@Override

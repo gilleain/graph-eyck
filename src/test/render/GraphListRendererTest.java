@@ -21,14 +21,14 @@ import org.junit.Test;
 import render.GraphListRenderer;
 import test.draw.BaseDrawTest;
 import divide.GridDivider;
-import divide.IDivider;
 import divide.LinearDivider;
+import divide.RegularDivider;
 
 public class GraphListRendererTest extends BaseDrawTest {
 	
 	public static final String OUT_DIR = "output/render";
 	
-	public void standardTestSet(int w, int h, IDivider divider, ILayout layout, String outFile) throws IOException {
+	public void standardTestSet(int w, int h, RegularDivider divider, ILayout layout, String outFile) throws IOException {
 		List<Graph> graphs = new ArrayList<Graph>();
 		graphs.add(new Graph("0:1,0:2,1:2"));
 		graphs.add(new Graph("0:1,0:3,1:2,2:3"));

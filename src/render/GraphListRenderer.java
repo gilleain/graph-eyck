@@ -15,7 +15,7 @@ import sketch.GraphSketcher;
 import sketcher.Sketcher;
 import awt.ListAWTPainter;
 import diagram.element.IDiagramElement;
-import divide.IDivider;
+import divide.RegularDivider;
 
 /**
  * Render a list of graphs.
@@ -27,7 +27,7 @@ public class GraphListRenderer  {
 	
 	private ILayout canvasLayout;
 	
-	private IDivider canvasDivider;
+	private RegularDivider canvasDivider;
 	
 	private Sketcher<List<Graph>, List<IDiagramElement>> listSketcher;
 	
@@ -43,7 +43,7 @@ public class GraphListRenderer  {
 		this.painter = new ListAWTPainter(graphics);
 	}
 	
-	public GraphListRenderer(IDivider canvasDivider, Graphics graphics) {
+	public GraphListRenderer(RegularDivider canvasDivider, Graphics graphics) {
 		this.canvasDivider = canvasDivider;
 		this.listSketcher = new GraphListSketcher(new GraphSketcher(new GraphLayout()));
 		this.painter = new ListAWTPainter(graphics);
