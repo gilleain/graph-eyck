@@ -29,8 +29,12 @@ public class MetagraphRendererTest extends BaseDrawTest {
 		metagraph.addSubgraph(new Graph("0:1,0:2,1:2"));
 		metagraph.addSubgraph(new Graph("0:1,0:3,1:2,2:3"));
 		metagraph.addSubgraph(new Graph("0:1,0:2,0:3,1:2,1:3"));
+		metagraph.addSubgraph(new Graph("0:1,0:3,1:2,2:3,3:4"));
+		metagraph.addSubgraph(new Graph("0:1,0:3,1:2,1:4,2:3,3:5"));
 		metagraph.addEdge(0, 1);
 		metagraph.addEdge(0, 2);
+		metagraph.addEdge(1, 3);
+		metagraph.addEdge(1, 4);
 		
 		Image img = makeBlankImage(w, h);
 		Graphics g = img.getGraphics();

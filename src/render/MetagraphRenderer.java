@@ -7,7 +7,7 @@ import java.util.List;
 import javax.vecmath.Point2d;
 
 import layout.GraphLayout;
-import layout.RadialTreeLayout;
+import layout.TopDownTreeLayout;
 import model.Graph;
 import model.Metagraph;
 import renderer.AbstractRenderer;
@@ -27,7 +27,7 @@ public class MetagraphRenderer extends AbstractRenderer<Metagraph> {
 	
 	public MetagraphRenderer(Graphics graphics) {
 		painter = new ListAWTPainter(graphics);
-		metagraphSketcher = new MetagraphSketcher(new RadialTreeLayout(getParams()), new GraphLayout());
+		metagraphSketcher = new MetagraphSketcher(new TopDownTreeLayout(getParams()), new GraphLayout());
 	}
 	
 	private ParameterSet getParams() {
