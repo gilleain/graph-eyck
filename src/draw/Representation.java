@@ -34,10 +34,14 @@ public class Representation {
 	}
 	
 	public IDiagramElement getDiagram() {
+		return getDiagram(1);
+	}
+	
+    public IDiagramElement getDiagram(int r) {
 		// XXX for now, construct from scratch...
 		IDiagramElement root = new ElementList();
 		for (Point2D p : points.values()) {
-			root.add(new CircleElement(new Point2d(p.getX(), p.getY()), 1));
+			root.add(new CircleElement(new Point2d(p.getX(), p.getY()), r));
 		}
 		for (Line2D line : lines.values()) {
 			Point2d pA = point2Point(line.getP1());

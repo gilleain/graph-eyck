@@ -27,7 +27,7 @@ public class MetagraphSketcher implements Sketcher<Metagraph, List<IDiagramEleme
 		Graph metagraphGraph = metagraph.getMetagraph();
 		List<IDiagramElement> diagrams = new ArrayList<IDiagramElement>();
 		Representation topLevelRep = topLevelLayout.layout(metagraphGraph, new Rectangle2D.Double(0, 0, 200, 200));
-		diagrams.add(topLevelRep.getDiagram());
+		diagrams.add(topLevelRep.getDiagram(3));
 		for (Graph subgraph : metagraph.getGraphs()) {
 			Representation subRep = subLevelLayout.layout(subgraph, new Rectangle2D.Double(0, 0, 100, 100));
 			diagrams.add(subRep.getDiagram());

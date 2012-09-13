@@ -27,7 +27,7 @@ public class GraphDivider extends AbstractDivider implements IrregularDivider {
 				subCanvases.add(subElement.getBounds());	// XXX!
 			}
 		}
-		System.out.println(subCanvases);
+//		System.out.println(subCanvases);
 		return subCanvases;
 	}
 
