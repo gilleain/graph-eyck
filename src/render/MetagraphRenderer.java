@@ -26,7 +26,7 @@ public class MetagraphRenderer extends AbstractRenderer<Metagraph> {
 	private ListAWTPainter painter;
 	
 	public MetagraphRenderer(Graphics graphics) {
-		painter = new ListAWTPainter(graphics);
+		painter = new ListAWTPainter(graphics, true);
 		metagraphSketcher = new MetagraphSketcher(new TopDownTreeLayout(getParams()), new GraphLayout());
 	}
 	
