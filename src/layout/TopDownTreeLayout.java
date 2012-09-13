@@ -43,7 +43,13 @@ public class TopDownTreeLayout implements SimpleLayout {
     
     public Representation layout(Graph tree, Rectangle2D canvas) {
         representation = new Representation();
-        int root = TreeCenterFinder.findUniqueCenter(tree);
+        double rootLabel = params.get("rootLabel");	// XXX
+        int root;
+        if (rootLabel == 1) {	// XXX very wrong!
+        	root = TreeCenterFinder.findUniqueCenter(tree);
+        } else {
+        	root = (int) rootLabel;
+        }
         int[] depthList = new int[tree.getVertexCount()];
         int maxDepth = calculateDepth(tree, root, depthList, 1);
         

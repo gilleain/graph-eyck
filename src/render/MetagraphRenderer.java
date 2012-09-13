@@ -26,13 +26,14 @@ public class MetagraphRenderer extends AbstractRenderer<Metagraph> {
 	private ListAWTPainter painter;
 	
 	public MetagraphRenderer(Graphics graphics) {
-		painter = new ListAWTPainter(graphics, true);
+		painter = new ListAWTPainter(graphics, false);
 		metagraphSketcher = new MetagraphSketcher(new TopDownTreeLayout(getParams()), new GraphLayout());
 	}
 	
 	private ParameterSet getParams() {
 		ParameterSet params = new ParameterSet();
 		params.set("edgeLength", 20);
+		params.set("rootLabel", 0);
 		return params;
 	}
 
@@ -45,7 +46,14 @@ public class MetagraphRenderer extends AbstractRenderer<Metagraph> {
 		DiagramTransformer.scaleToFit(metagraphDiagram, canvas);
 		
 		Graph topLevelGraph = metagraph.getMetagraph();
-		painter.paint(diagrams, canvas, new GraphDivider(topLevelGraph, metagraphDiagram));
+		GraphDivider divider = new GraphDivider(topLevelGraph, metagraphDiagram);
+		List<Rectangle2D> canvases = divider.divide(canvas);
+		for (int i = 1; i < diagrams.size(); i++) {
+			IDiagramElement diagram = diagrams.get(i);
+			DiagramTransformer.scaleToFit(diagram, canvases.get(i));
+		}
+		
+		painter.paint(diagrams, canvas, divider);
 	}
 
 	@Override
