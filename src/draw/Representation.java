@@ -6,14 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.vecmath.Point2d;
-
 import planar.Edge;
 import planar.Vertex;
-import diagram.element.CircleElement;
-import diagram.element.ElementList;
-import diagram.element.IDiagramElement;
-import diagram.element.LineElement;
 
 /**
  * A graphical representation of a graph.
@@ -30,28 +24,6 @@ public class Representation {
 	public Representation() {
 		this.points = new HashMap<Vertex, Point2D>();
 		this.edges = new ArrayList<Edge>();
-	}
-	
-	public IDiagramElement getDiagram() {
-		return getDiagram(1);
-	}
-	
-    public IDiagramElement getDiagram(int r) {
-		// XXX for now, construct from scratch...
-		IDiagramElement root = new ElementList();
-		for (Point2D p : points.values()) {
-			root.add(new CircleElement(new Point2d(p.getX(), p.getY()), r));
-		}
-		for (Edge edge : edges) {
-			Point2d pA = point2Point(points.get(edge.getA()));
-			Point2d pB = point2Point(points.get(edge.getB()));
-			root.add(new LineElement(pA, pB));
-		}
-		return root;
-	}
-	
-	private Point2d point2Point(Point2D p) {
-		return new Point2d(p.getX(), p.getY());
 	}
 	
 	public void addPoint(Vertex vertex, Point2D point) {
