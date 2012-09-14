@@ -2,6 +2,7 @@ package test.planar;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -14,9 +15,7 @@ import model.GraphFileReader;
 
 import org.junit.Test;
 
-import planar.BlockEmbedding;
-import planar.PlanarBlockEmbedder;
-import draw.Drawing;
+import render.GraphRenderer;
 import draw.ParameterSet;
 
 public class GeneratedGraphsTest {
@@ -27,28 +26,21 @@ public class GeneratedGraphsTest {
 		
 		int i = 0;
 		for (Graph graph : GraphFileReader.readAll(inputDir)) {
-			BlockEmbedding em = null;
+			BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_GRAY);
+			Graphics2D g = (Graphics2D) image.getGraphics();
+			GraphRenderer renderer = new GraphRenderer(g, new ConcentricCircularLayout(new ParameterSet()));
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, w, h);
 			try {
-				em = PlanarBlockEmbedder.embed(graph);
+				renderer.render(graph, new Rectangle2D.Double(0, 0, w, h));
 			} catch (Exception e) {
 				System.out.println("ERROR for " + i + " = " + graph);
 			}
-			if (em == null) {
-				System.out.println("no embedding for graph " + i + " = " + graph);
-			} else {
-				System.out.println("embedding for graph " + i + " = " + graph);
-				Drawing drawing = new Drawing(em, new ConcentricCircularLayout(new ParameterSet()));
-				BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_GRAY);
-				Graphics2D g = (Graphics2D) image.getGraphics();
-				g.setColor(Color.WHITE);
-				g.fillRect(0, 0, w, h);
-				drawing.draw(g, w, h);
-				g.dispose();
-				
-				// write
-				String filename = "g" + i + ".png";
-				ImageIO.write(image, "PNG", new File(outDir, filename));
-			}
+			g.dispose();
+
+			// write
+			String filename = "g" + i + ".png";
+			ImageIO.write(image, "PNG", new File(outDir, filename));
 			i++;
 		}
 	}

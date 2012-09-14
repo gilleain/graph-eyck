@@ -1,5 +1,7 @@
 package sketch;
 
+import generator.IGenerator;
+
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.List;
 import layout.SimpleLayout;
 import model.Graph;
 import model.Metagraph;
+import planar.Edge;
 import sketcher.Sketcher;
 import diagram.element.IDiagramElement;
 import draw.Representation;
@@ -17,9 +20,16 @@ public class MetagraphSketcher implements Sketcher<Metagraph, List<IDiagramEleme
 	
 	private SimpleLayout subLevelLayout;
 	
+	private List<IGenerator<Edge>> edgeGenerators;
+	
 	public MetagraphSketcher(SimpleLayout topLevelLayout, SimpleLayout subLevelLayout) {
 		this.topLevelLayout = topLevelLayout;
 		this.subLevelLayout = subLevelLayout;
+		this.edgeGenerators = new ArrayList<IGenerator<Edge>>();
+	}
+	
+	public void addEdgeGenerator(IGenerator<Edge> edgeGenerator) {
+		this.edgeGenerators.add(edgeGenerator);
 	}
 
 	@Override

@@ -9,13 +9,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import layout.ConcentricCircularLayout;
 import layout.BlockLayout;
-import layout.PlestenjakRefiner;
+import layout.ConcentricCircularLayout;
+import layout.NullLayout;
 import layout.Refiner;
 import planar.BlockEmbedding;
+import render.GraphRenderer;
 import draw.Colorer;
-import draw.Drawing;
 import draw.ParameterSet;
 
 public abstract class AbstractDrawingTest {
@@ -60,27 +60,24 @@ public abstract class AbstractDrawingTest {
 		int ww = w + (2 * border);
 		int hh = h + (2 * border);
 		Rectangle2D canvas = new Rectangle2D.Double(border, border, w, h);
-		Drawing drawing;
 		if (layout == null) {
 		    layout = new ConcentricCircularLayout(params);
 		}
 		// TODO : fix the combinations of null refiners/colorers/layouts...
-		if (colorer == null) {
-		    if (refiner == null) {
-		        drawing = new Drawing(em, layout);
-		    } else {
-		        drawing = new Drawing(em, layout, new PlestenjakRefiner(canvas));
-		    }
-		} else {
-		    drawing = new Drawing(em, layout, refiner, colorer);
-		}
-		
+//		if (colorer == null) {
+//		    if (refiner == null) {
+//		    } else {
+//		    }
+//		} else {
+//		}
 		BufferedImage image = new BufferedImage(ww, hh, BufferedImage.TYPE_4BYTE_ABGR);
 		Graphics2D g = (Graphics2D) image.getGraphics();
+		GraphRenderer renderer = new GraphRenderer(g, new NullLayout(layout.layout(em, canvas)));
+		
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, ww, hh);
 		g.setColor(Color.BLACK);
-		drawing.draw(g, canvas, params);
+		renderer.render(null, canvas);
 		
 		// write
 		File dir = new File(getOutputDir());

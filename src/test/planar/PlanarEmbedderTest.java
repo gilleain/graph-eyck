@@ -2,6 +2,7 @@ package test.planar;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -9,14 +10,16 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import layout.ConcentricCircularLayout;
+import layout.NullLayout;
 import model.Graph;
 
 import org.junit.Test;
 
 import planar.BlockEmbedding;
 import planar.PlanarBlockEmbedder;
-import draw.Drawing;
+import render.GraphRenderer;
 import draw.ParameterSet;
+import draw.Representation;
 
 public class PlanarEmbedderTest {
 	
@@ -32,13 +35,16 @@ public class PlanarEmbedderTest {
 			File outDir = new File(OUT_DIR);
 			if (!outDir.exists()) { outDir.mkdir(); }
 			
-			Drawing drawing = new Drawing(em, new ConcentricCircularLayout(new ParameterSet()));
+			ConcentricCircularLayout layout = new ConcentricCircularLayout(new ParameterSet());
+			Rectangle2D canvas = new Rectangle2D.Double(0, 0, W, H);
+			Representation representation = layout.layout(em, canvas);
 			BufferedImage image = new BufferedImage(W, H, BufferedImage.TYPE_BYTE_GRAY);
 			Graphics2D g = (Graphics2D) image.getGraphics();
 			g.setColor(Color.WHITE);
-			g.fillRect(0, 0, W, H);
+			g.fill(canvas);
 			g.setColor(Color.BLACK);
-			drawing.draw(g, W, H);
+			GraphRenderer renderer = new GraphRenderer(g, new NullLayout(representation));
+			renderer.render(null, canvas);
 			g.dispose();
 			
 			// write
