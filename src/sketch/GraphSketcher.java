@@ -15,6 +15,7 @@ import diagram.element.CircleElement;
 import diagram.element.ElementList;
 import diagram.element.IDiagramElement;
 import diagram.element.LineElement;
+import draw.ParameterSet;
 import draw.Representation;
 
 /**
@@ -28,18 +29,24 @@ public class GraphSketcher extends AbstractArtist implements Sketcher<Graph, IDi
 
 	private SimpleLayout layout;
 	
+	private ParameterSet params;
+	
 	public GraphSketcher(SimpleLayout layout) {
+		this(layout, new ParameterSet());
+	}
+	
+	public GraphSketcher(SimpleLayout layout, ParameterSet params) {
 		this.layout = layout;
+		this.params = params;
 	}
 
 	@Override
 	public IDiagramElement sketch(Graph graph) {
-		layout.getParameters().set("edgeLength", 20);
 		Rectangle2D canvas = new Rectangle2D.Double(0, 0, 100, 100);
 		
 		Representation rep = layout.layout(graph, canvas);
 		IDiagramElement root = new ElementList();
-		int r = 10;	// TODO
+		int r = (int) params.get("vertexRadius");
 		List<Point2D> points = rep.getPoints();
 		for (Point2D p : points) {
 			root.add(new CircleElement(new Point2d(p.getX(), p.getY()), r));

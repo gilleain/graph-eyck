@@ -27,12 +27,20 @@ public class MetagraphRenderer extends AbstractRenderer<Metagraph> {
 	
 	public MetagraphRenderer(Graphics graphics) {
 		painter = new ListAWTPainter(graphics, false);
-		metagraphSketcher = new MetagraphSketcher(new TopDownTreeLayout(getParams()), new GraphLayout());
+		metagraphSketcher = new MetagraphSketcher(
+								new TopDownTreeLayout(getTopLevelParams()),
+								new GraphLayout(getSubLevelParams()));
 	}
 	
-	private ParameterSet getParams() {
+	private ParameterSet getSubLevelParams() {
 		ParameterSet params = new ParameterSet();
-		params.set("edgeLength", 20);
+		params.set("edgeLength", 8);
+		return params;
+	}
+
+	private ParameterSet getTopLevelParams() {
+		ParameterSet params = new ParameterSet();
+		params.set("edgeLength", 15);
 		params.set("rootLabel", 0);
 		return params;
 	}
