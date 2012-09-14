@@ -1,6 +1,5 @@
 package layout;
 
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import model.Graph;
-
 import planar.BlockEmbedding;
 import planar.Edge;
 import planar.Face;
@@ -77,9 +75,7 @@ public class ConcentricCircularLayout implements BlockLayout, SimpleLayout {
         });
         for (Vertex v : keys) {
             for (Vertex u : fromMap(v, cm)) {
-                Point2D pv = fromPMap(v, positions);
-                Point2D pu = fromPMap(u, positions);
-                representation.addLine(new Edge(v, u), new Line2D.Double(pv, pu));
+                representation.addEdge(new Edge(v, u));
             }
         }
         
@@ -216,15 +212,6 @@ public class ConcentricCircularLayout implements BlockLayout, SimpleLayout {
 			}
 		}
 		return false;
-	}
-	
-	private Point2D fromPMap(Vertex vertex, Map<Vertex, Point2D> map) {
-		for (Vertex key : map.keySet()) {
-			if (vertex.equals(key)) {
-				return map.get(key);
-			}
-		}
-		return new Point2D.Double();
 	}
 
 }

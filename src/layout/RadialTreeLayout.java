@@ -1,6 +1,5 @@
 package layout;
 
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
@@ -93,8 +92,7 @@ public class RadialTreeLayout implements SimpleLayout {
 //            System.out.println("current angle " + Math.round(Math.toDegrees(currentAngle)) + 
 //                               " for " + neighbour);
             Point2D nextPoint = makeNextPoint(ppV, currentAngle);
-            representation.addLine(
-            		new Edge(pV, new Vertex(neighbour)), new Line2D.Double(ppV, nextPoint));
+            representation.addEdge(new Edge(pV, new Vertex(neighbour)));
             layout(tree, neighbour, index, nextPoint, representation);
         }
     }
@@ -140,8 +138,7 @@ public class RadialTreeLayout implements SimpleLayout {
                 //              System.out.println(String.format("%d %d %d %2.0f %2.0f", index, neighbour, n, 
                 //                      Math.toDegrees(currentAngle), Math.toDegrees(addAngle)));
                 Point2D nextPoint = makeNextPoint(point, currentAngle);
-                rep.addLine(new Edge(vertex, new Vertex(neighbour)), 
-                        new Line2D.Double(point, nextPoint));
+                rep.addEdge(new Edge(vertex, new Vertex(neighbour)));
                 layout(tree, neighbour, index, nextPoint, rep);
             }
         }
@@ -175,8 +172,7 @@ public class RadialTreeLayout implements SimpleLayout {
         Point2D centerPointB = new Point2D.Double(centerX + (edgeLen / 2), centerY);
         
         rep.addPoint(new Vertex(centerIndexB), centerPointB);
-        rep.addLine(new Edge(new Vertex(centerIndexA), new Vertex(centerIndexB)), 
-                    new Line2D.Double(centerPointA, centerPointB));
+        rep.addEdge(new Edge(new Vertex(centerIndexA), new Vertex(centerIndexB)));
         
         layout(tree, centerIndexA, centerIndexB, centerPointA, rep);
         layout(tree, centerIndexB, centerIndexA, centerPointB, rep);

@@ -229,7 +229,7 @@ public class OuterplanarLayout implements BlockLayout {
             }
             if (isNew && representation.getPoint(prev) != null) {
 //                System.out.println("line between " + prev + " and " + vertex);
-                representation.addLine(new Edge(prev, vertex), new Line2D.Double(representation.getPoint(prev), p));
+                representation.addEdge(new Edge(prev, vertex));
             }
 //            currentAngle += alpha;
 //            if (currentAngle >= 2 * Math.PI) {
@@ -249,10 +249,8 @@ public class OuterplanarLayout implements BlockLayout {
         int lastIndex = (endVertexIndex == 0)? face.vsize() - 1 : endVertexIndex - 1;
         Vertex closingVertexA = face.getVertex(lastIndex);
         Vertex closingVertexB = face.getVertex(endVertexIndex);
-        Point2D pX = representation.getPoint(closingVertexA);
-        Point2D pY = representation.getPoint(closingVertexB);
 //        System.out.println("line between " + closingVertexA + " and " + closingVertexB + " CLOSE");
-        representation.addLine(new Edge(closingVertexA, closingVertexB), new Line2D.Double(pX, pY));
+        representation.addEdge(new Edge(closingVertexA, closingVertexB));
 	}
 
 }

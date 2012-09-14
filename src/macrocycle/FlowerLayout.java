@@ -2,7 +2,6 @@ package macrocycle;
 
 import group.Partition;
 
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
@@ -66,16 +65,14 @@ public class FlowerLayout {
             double yp = cy + (r * Math.sin(currentAngle));
             Point2D p= new Point2D.Double(xp, yp);
             representation.addPoint(vertex, p);
-            representation.addLine(new Edge(prev, vertex), new Line2D.Double(representation.getPoint(prev), p));
+            representation.addEdge(new Edge(prev, vertex));
             currentAngle += alpha;
             if (currentAngle >= 2 * Math.PI) {
                 currentAngle -= 2 * Math.PI;
             }
             prev = vertex;
         }
-        Point2D pX = representation.getPoint(prev);
-        Point2D pY = representation.getPoint(end);
-        representation.addLine(new Edge(prev, end), new Line2D.Double(pX, pY));
+        representation.addEdge(new Edge(prev, end));
     }
     
     private double angle(Point2D centralPoint, Point2D p) {

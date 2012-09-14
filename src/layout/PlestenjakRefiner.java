@@ -1,6 +1,5 @@
 package layout;
 
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -155,20 +154,18 @@ public class PlestenjakRefiner implements Refiner {
 //		print(refined.getPoints());
 		for (Vertex v : cm.keySet()) {
 			for (Vertex u : cm.get(v)) {
-				Point2D pv = refined.getPoint(v);
-				Point2D pu = refined.getPoint(u);
-				refined.addLine(new Edge(v, u), new Line2D.Double(pv, pu));
+				refined.addEdge(new Edge(v, u));
 			}
 		}
 		return refined;
 	}
 	
-	private void print(List<Point2D> points) {
-		for (Point2D p : points) {
-			System.out.print("[" + Math.round(p.getX()) + ", " + Math.round(p.getY()) + "]");
-		}
-		System.out.println();
-	}
+//	private void print(List<Point2D> points) {
+//		for (Point2D p : points) {
+//			System.out.print("[" + Math.round(p.getX()) + ", " + Math.round(p.getY()) + "]");
+//		}
+//		System.out.println();
+//	}
 	
 	private Vector2d vectorFunc(Point2D v, Point2D u) {
 		double vx = v.getX();

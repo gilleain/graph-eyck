@@ -1,6 +1,5 @@
 package draw;
 
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,11 +25,11 @@ public class Representation {
 	
 	private Map<Vertex, Point2D> points;
 	
-	private Map<Edge, Line2D> lines;
+	private List<Edge> edges;
 	
 	public Representation() {
 		this.points = new HashMap<Vertex, Point2D>();
-		this.lines = new HashMap<Edge, Line2D>();
+		this.edges = new ArrayList<Edge>();
 	}
 	
 	public IDiagramElement getDiagram() {
@@ -43,9 +42,9 @@ public class Representation {
 		for (Point2D p : points.values()) {
 			root.add(new CircleElement(new Point2d(p.getX(), p.getY()), r));
 		}
-		for (Line2D line : lines.values()) {
-			Point2d pA = point2Point(line.getP1());
-			Point2d pB = point2Point(line.getP2());
+		for (Edge edge : edges) {
+			Point2d pA = point2Point(points.get(edge.getA()));
+			Point2d pB = point2Point(points.get(edge.getB()));
 			root.add(new LineElement(pA, pB));
 		}
 		return root;
@@ -63,8 +62,12 @@ public class Representation {
 		return points.get(vertex);
 	}
 	
-	public void addLine(Edge edge, Line2D line) {
-		this.lines.put(edge, line);
+	public void addEdge(Edge edge) {
+		edges.add(edge);
+	}
+	
+	public List<Edge> getEdges() {
+		return edges;
 	}
 	
 	public List<Point2D> getPoints() {
@@ -86,7 +89,7 @@ public class Representation {
 
     public void add(Representation other) {
         points.putAll(other.points);
-        lines.putAll(other.lines);
+        edges.addAll(other.edges);
     }
 
 	public String toString() {
@@ -94,9 +97,8 @@ public class Representation {
 	    for (Vertex v : points.keySet()) {
 	        sb.append(v).append("\t").append(points.get(v)).append("\n");
 	    }
-	    for (Edge edge : lines.keySet()) {
-	        Line2D line = lines.get(edge);
-	        sb.append(String.format("%s %s %s", edge, line.getP1(), line.getP2()));
+	    for (Edge edge : edges) {
+	        sb.append(edge);
 	    }
 	    return sb.toString();
 	}

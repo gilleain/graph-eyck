@@ -1,6 +1,5 @@
 package layout;
 
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
@@ -60,11 +59,9 @@ public class CircleLayout implements SimpleLayout {
 		Map<Integer, List<Integer>> connectionTable = graph.getConnectionTable();
 		for (int i = 0; i < n; i++) {
 			Vertex v = vertices.get(i);
-			Point2D pi = repr.getPoint(v); 
 			for (int j : connectionTable.get(i)) {
 				Vertex u = vertices.get(j);
-				Point2D pj = repr.getPoint(u);
-				repr.addLine(new Edge(v, u), new Line2D.Double(pi, pj));
+				repr.addEdge(new Edge(v, u));
 			}
 		}
 		return repr;

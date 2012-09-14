@@ -2,7 +2,6 @@ package test.macrocycle;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -94,8 +93,6 @@ public class HexLatticeCyclesTest extends LatticeTest {
     
     public Representation getCycleRepr(HexLattice lattice, Block cycle) {
         List<Point2D> points = lattice.getPointList();
-        List<Line2D> lines   = lattice.getLineList();
-        Graph graph = lattice.getGraph();
         
         Representation rep = new Representation();
         for (int vertexIndex = 0; vertexIndex < cycle.vsize(); vertexIndex++) {
@@ -104,10 +101,7 @@ public class HexLatticeCyclesTest extends LatticeTest {
         }
         
         for (Edge edge : cycle.getEdges()) {
-            Vertex a = edge.getA();
-            Vertex b = edge.getB();
-            int eIndex = graph.getEdgeIndex(a.getIndex(), b.getIndex());
-            rep.addLine(edge, lines.get(eIndex));
+            rep.addEdge(edge);
         }
         
         return rep;
@@ -115,7 +109,6 @@ public class HexLatticeCyclesTest extends LatticeTest {
     
     public Representation getCycleAsFusaneRepr(HexLattice lattice, Block cycle) {
         List<Point2D> points = lattice.getPointList();
-        List<Line2D> lines   = lattice.getLineList();
         Graph graph = lattice.getGraph();
         
         Representation rep = new Representation();
@@ -125,8 +118,7 @@ public class HexLatticeCyclesTest extends LatticeTest {
             for (int partnerIndex : graph.getConnected(vertexIndex)) {
                 Vertex pV = new Vertex(partnerIndex);
                 if (cycle.hasVertex(pV)) {
-                    int eIndex = graph.getEdgeIndex(vertexIndex, partnerIndex);
-                    rep.addLine(new Edge(v, pV), lines.get(eIndex));
+                    rep.addEdge(new Edge(v, pV));
                 }
             }
         }
@@ -436,7 +428,7 @@ public class HexLatticeCyclesTest extends LatticeTest {
         }
         
         if (embedding != null) {
-          Graph innerDual = DualFinder.getDual(embedding);
+//          Graph innerDual = DualFinder.getDual(embedding);
 //          String sig = new GraphSignature(innerDual).toCanonicalString();
 //          System.out.println(sig);
         } else {

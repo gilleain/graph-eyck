@@ -122,13 +122,13 @@ public class HexLattice implements Lattice {
         return new TriangleLattice(3, 3, r);   // TODO!
     }
     
-    private int calculateLeftNeighbourIndex(int hexWidth, int row, int hexIndex) {
-        if (row % 2 == 0) {
-            return (hexIndex - hexWidth) * 6;
-        } else {
-            return hexIndex - hexWidth;
-        }
-    }
+//    private int calculateLeftNeighbourIndex(int hexWidth, int row, int hexIndex) {
+//        if (row % 2 == 0) {
+//            return (hexIndex - hexWidth) * 6;
+//        } else {
+//            return hexIndex - hexWidth;
+//        }
+//    }
     
     private int calculateRightNeighbourIndex(int hexWidth, int row, int hexIndex) {
         if (row % 2 == 0) {

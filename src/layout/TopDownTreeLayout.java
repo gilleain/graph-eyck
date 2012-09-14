@@ -1,6 +1,5 @@
 package layout;
 
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
@@ -111,9 +110,7 @@ public class TopDownTreeLayout implements SimpleLayout {
             if (child != parent) {
                 Vertex childVertex = representation.getVertex(child);
                 if (childVertex != null) {
-                    representation.addLine(
-                            new Edge(childVertex, rootVertex),
-                            new Line2D.Double(representation.getPoint(childVertex), p));
+                    representation.addEdge(new Edge(childVertex, rootVertex));
                 }
             }
         }
