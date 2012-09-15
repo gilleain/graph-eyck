@@ -75,7 +75,10 @@ public class ConcentricCircularLayout implements BlockLayout, SimpleLayout {
         });
         for (Vertex v : keys) {
             for (Vertex u : fromMap(v, cm)) {
-                representation.addEdge(new Edge(v, u));
+            	Edge e = new Edge(v, u);
+            	if (!representation.getEdges().contains(e)) {
+            		representation.addEdge(e);
+            	}
             }
         }
         

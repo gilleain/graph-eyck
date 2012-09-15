@@ -1,5 +1,9 @@
 package render;
 
+import generator.EdgeGenerator;
+import generator.VertexLabelGenerator;
+import generator.VertexShapeGenerator;
+
 import java.awt.Graphics;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -27,7 +31,11 @@ public class GraphRenderer extends AbstractRenderer<Graph> {
 	}
 	
     public GraphRenderer(Graphics g, SimpleLayout layout) {
-		setSketcher(new GraphSketcher(layout));
+    	GraphSketcher s = new GraphSketcher(layout);
+    	s.addVertexGenerator(new VertexShapeGenerator());
+//    	s.addVertexGenerator(new VertexLabelGenerator()); // XXX FIXME
+    	s.addEdgeGenerator(new EdgeGenerator());
+		setSketcher(s);
 		setPainter(new BasicAWTPainter(g));
 		this.g = g;
 	}

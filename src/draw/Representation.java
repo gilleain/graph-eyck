@@ -45,7 +45,7 @@ public class Representation {
 	
 	public void addEdge(Edge edge) {
 		edges.add(edge);
-		this.placedEdges.add(makePlacedEdge(edge));
+		placedEdges.add(makePlacedEdge(edge));
 	}
 	
 	private PlacedEdge makePlacedEdge(Edge e) {
@@ -94,6 +94,8 @@ public class Representation {
     public void add(Representation other) {
         points.putAll(other.points);
         edges.addAll(other.edges);
+        placedVertices.addAll(other.placedVertices);
+        placedEdges.addAll(other.placedEdges);
     }
 
 	public String toString() {
@@ -101,8 +103,20 @@ public class Representation {
 	    for (Vertex v : points.keySet()) {
 	        sb.append(v).append("\t").append(points.get(v)).append("\n");
 	    }
+	    int i = 0;
 	    for (Edge edge : edges) {
 	        sb.append(edge);
+	        if (i < edges.size() - 1) {
+	        	sb.append(",");
+	        }
+	        i++;
+	    }
+	    sb.append("\n");
+	    for (PlacedVertex pv : placedVertices) {
+	    	sb.append(pv).append("\n");
+	    }
+	    for (PlacedEdge pe : placedEdges) {
+	    	sb.append(pe).append("\n");
 	    }
 	    return sb.toString();
 	}

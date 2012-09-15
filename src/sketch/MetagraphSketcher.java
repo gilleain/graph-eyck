@@ -1,6 +1,8 @@
 package sketch;
 
-import generator.IGenerator;
+import generator.EdgeGenerator;
+import generator.VertexLabelGenerator;
+import generator.VertexShapeGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,23 +10,25 @@ import java.util.List;
 import layout.SimpleLayout;
 import model.Graph;
 import model.Metagraph;
-import planar.Edge;
 import sketcher.Sketcher;
 import diagram.element.IDiagramElement;
 import draw.ParameterSet;
 
 public class MetagraphSketcher implements Sketcher<Metagraph, List<IDiagramElement>> {
 	
-	private List<IGenerator<Edge>> edgeGenerators;
-	
 	private GraphSketcher graphSketcher;
 	
 	private GraphSketcher subGraphSketcher;
 	
 	public MetagraphSketcher(SimpleLayout topLevelLayout, SimpleLayout subLevelLayout) {
-		this.edgeGenerators = new ArrayList<IGenerator<Edge>>();
 		graphSketcher = new GraphSketcher(topLevelLayout, getTopLevelParams());
+		graphSketcher.addVertexGenerator(new VertexShapeGenerator());
+		graphSketcher.addEdgeGenerator(new EdgeGenerator());
+		
 		subGraphSketcher = new GraphSketcher(subLevelLayout, getSubLevelParams());
+		subGraphSketcher.addVertexGenerator(new VertexShapeGenerator());
+		subGraphSketcher.addVertexGenerator(new VertexLabelGenerator());
+		subGraphSketcher.addEdgeGenerator(new EdgeGenerator());
 	}
 	
 	private ParameterSet getSubLevelParams() {
@@ -36,10 +40,7 @@ public class MetagraphSketcher implements Sketcher<Metagraph, List<IDiagramEleme
 	private ParameterSet getTopLevelParams() {
 		ParameterSet params = new ParameterSet();
 		params.set("vertexRadius", 8);
-		return params;	}
-
-	public void addEdgeGenerator(IGenerator<Edge> edgeGenerator) {
-		this.edgeGenerators.add(edgeGenerator);
+		return params;	
 	}
 
 	@Override
