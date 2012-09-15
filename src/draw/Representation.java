@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import planar.Edge;
+import planar.PlacedEdge;
+import planar.PlacedVertex;
 import planar.Vertex;
 
 /**
@@ -19,15 +21,22 @@ public class Representation {
 	
 	private Map<Vertex, Point2D> points;
 	
+	private List<PlacedVertex> placedVertices;
+	
+	private List<PlacedEdge> placedEdges;
+	
 	private List<Edge> edges;
 	
 	public Representation() {
 		this.points = new HashMap<Vertex, Point2D>();
 		this.edges = new ArrayList<Edge>();
+		this.placedVertices = new ArrayList<PlacedVertex>();
+		this.placedEdges = new ArrayList<PlacedEdge>();
 	}
 	
 	public void addPoint(Vertex vertex, Point2D point) {
 		this.points.put(vertex, point);
+		this.placedVertices.add(new PlacedVertex(vertex, point));
 	}
 	
 	public Point2D getPoint(Vertex vertex) {
@@ -36,10 +45,33 @@ public class Representation {
 	
 	public void addEdge(Edge edge) {
 		edges.add(edge);
+		this.placedEdges.add(makePlacedEdge(edge));
+	}
+	
+	private PlacedEdge makePlacedEdge(Edge e) {
+		PlacedVertex vA = null;
+		PlacedVertex vB = null;
+		for (PlacedVertex pv : placedVertices) {
+			Vertex v = pv.getVertex();
+			if (v.equals(e.getA())) {
+				vA = pv;
+			} else if (v.equals(e.getB())) {
+				vB = pv;
+			}
+		}
+		return new PlacedEdge(vA, vB);
 	}
 	
 	public List<Edge> getEdges() {
 		return edges;
+	}
+	
+	public List<PlacedVertex> getPlacedVertices() {
+		return placedVertices;
+	}
+	
+	public List<PlacedEdge> getPlacedEdges() {
+		return placedEdges;
 	}
 	
 	public List<Point2D> getPoints() {

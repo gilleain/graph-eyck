@@ -1,20 +1,19 @@
 package sketch;
 
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-import java.util.List;
+import generator.IGenerator;
 
-import javax.vecmath.Point2d;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 import layout.SimpleLayout;
 import model.Graph;
-import planar.Edge;
+import planar.PlacedEdge;
+import planar.PlacedVertex;
 import sketcher.Sketcher;
 import core.AbstractArtist;
-import diagram.element.CircleElement;
 import diagram.element.ElementList;
 import diagram.element.IDiagramElement;
-import diagram.element.LineElement;
 import draw.ParameterSet;
 import draw.Representation;
 
@@ -31,6 +30,10 @@ public class GraphSketcher extends AbstractArtist implements Sketcher<Graph, IDi
 	
 	private ParameterSet params;
 	
+	private List<IGenerator<PlacedVertex>> vertexGenerators;
+	
+	private List<IGenerator<PlacedEdge>> edgeGenerators;
+	
 	public GraphSketcher(SimpleLayout layout) {
 		this(layout, new ParameterSet());
 	}
@@ -38,6 +41,18 @@ public class GraphSketcher extends AbstractArtist implements Sketcher<Graph, IDi
 	public GraphSketcher(SimpleLayout layout, ParameterSet params) {
 		this.layout = layout;
 		this.params = params;
+		this.vertexGenerators = new ArrayList<IGenerator<PlacedVertex>>();
+		this.edgeGenerators = new ArrayList<IGenerator<PlacedEdge>>();
+	}
+	
+	public void addVertexGenerator(IGenerator<PlacedVertex> vertexGenerator) {
+		vertexGenerator.setParams(params);
+		vertexGenerators.add(vertexGenerator);
+	}
+	
+	public void addEdgeGenerator(IGenerator<PlacedEdge> edgeGenerator) {
+		edgeGenerator.setParams(params);
+		edgeGenerators.add(edgeGenerator);
 	}
 
 	@Override
@@ -46,20 +61,16 @@ public class GraphSketcher extends AbstractArtist implements Sketcher<Graph, IDi
 		
 		Representation rep = layout.layout(graph, canvas);
 		IDiagramElement root = new ElementList();
-		int r = (int) params.get("vertexRadius");
-		List<Point2D> points = rep.getPoints();
-		for (Point2D p : points) {
-			root.add(new CircleElement(new Point2d(p.getX(), p.getY()), r));
+		for (PlacedVertex v : rep.getPlacedVertices()) {
+			for (IGenerator<PlacedVertex> genV : vertexGenerators) {
+				root.add(genV.generate(v));
+			}
 		}
-		for (Edge edge : rep.getEdges()) {
-			Point2d pA = point2Point(rep.getPoint(edge.getA()));
-			Point2d pB = point2Point(rep.getPoint(edge.getB()));
-			root.add(new LineElement(pA, pB));
+		for (PlacedEdge e : rep.getPlacedEdges()) {
+			for (IGenerator<PlacedEdge> genE : edgeGenerators) {
+				root.add(genE.generate(e));
+			}
 		}
 		return root;
-	}
-	
-	private Point2d point2Point(Point2D p) {
-		return new Point2d(p.getX(), p.getY());
 	}
 }
