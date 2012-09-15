@@ -72,7 +72,7 @@ public abstract class AbstractDrawingTest {
 //		}
 		BufferedImage image = new BufferedImage(ww, hh, BufferedImage.TYPE_4BYTE_ABGR);
 		Graphics2D g = (Graphics2D) image.getGraphics();
-		GraphRenderer renderer = new GraphRenderer(g, new NullLayout(layout.layout(em, canvas)));
+		GraphRenderer renderer = new GraphRenderer(g, new NullLayout(layout.layout(em, canvas)), params);
 		
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, ww, hh);

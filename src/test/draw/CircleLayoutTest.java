@@ -29,7 +29,7 @@ public class CircleLayoutTest extends BaseDrawTest {
 		Graphics g = image.getGraphics();
 		
 		CircleLayout layout = new CircleLayout(params);
-		GraphRenderer renderer = new GraphRenderer(g, layout);
+		GraphRenderer renderer = new GraphRenderer(g, layout, params);
 		Rectangle2D canvas = new Rectangle2D.Double(0, 0, w, h);
 		renderer.render(graph, canvas);
 		

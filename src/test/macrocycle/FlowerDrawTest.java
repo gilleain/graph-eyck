@@ -44,7 +44,7 @@ public class FlowerDrawTest {
             File outFile = new File(dir, name + "_" + filenameRoot + ".png");
             BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g = (Graphics2D)image.getGraphics();
-            GraphRenderer renderer = new GraphRenderer(g, new NullLayout(representation));
+            GraphRenderer renderer = new GraphRenderer(g, new NullLayout(representation), params);
             g.setColor(Color.WHITE);
             g.fillRect(0, 0, w, h);
             renderer.render(null, canvas);

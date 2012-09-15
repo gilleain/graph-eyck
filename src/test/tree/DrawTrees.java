@@ -63,7 +63,7 @@ public class DrawTrees {
 				}
 			}
 			graphics.setColor(Color.BLACK);
-			GraphRenderer renderer = new GraphRenderer(graphics, layout);
+			GraphRenderer renderer = new GraphRenderer(graphics, layout, params);
 			renderer.render(tree, canvas);	//	XXX - color 
 			ImageIO.write((RenderedImage)image, "PNG", outFile);
 			count++;

@@ -30,7 +30,7 @@ public class ConcentricCircularLayoutTest extends BaseDrawTest {
         Rectangle2D canvas = new Rectangle2D.Double(0, 0, w, h);
         Graphics2D graphics = (Graphics2D) image.getGraphics();
         graphics.setColor(Color.BLACK);
-        GraphRenderer renderer = new GraphRenderer(graphics, layout);
+        GraphRenderer renderer = new GraphRenderer(graphics, layout, params);
         renderer.render(g, canvas);
         ImageIO.write((RenderedImage) image, "PNG", getFile(OUT_DIR, filename));
     }

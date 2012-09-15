@@ -35,7 +35,8 @@ public class PlanarEmbedderTest {
 			File outDir = new File(OUT_DIR);
 			if (!outDir.exists()) { outDir.mkdir(); }
 			
-			ConcentricCircularLayout layout = new ConcentricCircularLayout(new ParameterSet());
+			ParameterSet params = new ParameterSet();
+			ConcentricCircularLayout layout = new ConcentricCircularLayout(params);
 			Rectangle2D canvas = new Rectangle2D.Double(0, 0, W, H);
 			Representation representation = layout.layout(em, canvas);
 			BufferedImage image = new BufferedImage(W, H, BufferedImage.TYPE_BYTE_GRAY);
@@ -43,7 +44,7 @@ public class PlanarEmbedderTest {
 			g.setColor(Color.WHITE);
 			g.fill(canvas);
 			g.setColor(Color.BLACK);
-			GraphRenderer renderer = new GraphRenderer(g, new NullLayout(representation));
+			GraphRenderer renderer = new GraphRenderer(g, new NullLayout(representation), params);
 			renderer.render(null, canvas);
 			g.dispose();
 			

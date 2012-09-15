@@ -56,7 +56,7 @@ public class RadialTreeLayoutTest {
         g.fillRect(0, 0, w, h);
         g.setColor(Color.BLACK);
         RadialTreeLayout layout = new RadialTreeLayout(params);
-        GraphRenderer renderer = new GraphRenderer(g, layout);
+        GraphRenderer renderer = new GraphRenderer(g, layout, params);
         Rectangle2D canvas = new Rectangle2D.Double(0, 0, w, h);
         renderer.render(tree, canvas);
         ImageIO.write(image, "PNG", new File(dir, filename));
@@ -95,7 +95,7 @@ public class RadialTreeLayoutTest {
             g.setColor(Color.WHITE);
             g.fillRect(0, 0, w, h);
             g.setColor(Color.BLACK);
-            GraphRenderer renderer = new GraphRenderer(g, layout);
+            GraphRenderer renderer = new GraphRenderer(g, layout, new ParameterSet());
             Map<Vertex, Color> colorMap = new HashMap<Vertex, Color>();
             List<Integer> center = TreeCenterFinder.findCenter(tree);
             for (int i = 0; i < tree.getVertexCount(); i++) {

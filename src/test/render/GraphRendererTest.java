@@ -8,12 +8,14 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import layout.ConcentricCircularLayout;
 import model.Graph;
 
 import org.junit.Test;
 
 import render.GraphRenderer;
 import test.draw.BaseDrawTest;
+import draw.ParameterSet;
 
 public class GraphRendererTest extends BaseDrawTest {
 	
@@ -26,7 +28,9 @@ public class GraphRendererTest extends BaseDrawTest {
 		Graph graph = new Graph("0:1,0:9,1:2,2:3,3:4,4:5,5:6,6:7,7:8,8:9");
 		Image img = makeBlankImage(w, h);
 		Graphics g = img.getGraphics();
-		GraphRenderer renderer = new GraphRenderer(g);
+		ParameterSet params = new ParameterSet();
+		params.set("vertexRadius", 2);
+		GraphRenderer renderer = new GraphRenderer(g, new ConcentricCircularLayout(params), params);
 		renderer.render(graph, new Rectangle2D.Double(0, 0, w, h));
 //		renderer.render(graph, new Point2d(w/2, h/2));
 		ImageIO.write((RenderedImage)img, "PNG", getFile(OUT_DIR, "circle.png"));

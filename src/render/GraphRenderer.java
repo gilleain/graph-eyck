@@ -1,7 +1,6 @@
 package render;
 
 import generator.EdgeGenerator;
-import generator.VertexLabelGenerator;
 import generator.VertexShapeGenerator;
 
 import java.awt.Graphics;
@@ -20,6 +19,7 @@ import diagram.DiagramBounder;
 import diagram.DiagramPrinter;
 import diagram.DiagramTransformer;
 import diagram.element.IDiagramElement;
+import draw.ParameterSet;
 
 @SuppressWarnings("unchecked")
 public class GraphRenderer extends AbstractRenderer<Graph> {
@@ -27,10 +27,10 @@ public class GraphRenderer extends AbstractRenderer<Graph> {
 	private Graphics g;	// TMP FIXME
 	
 	public GraphRenderer(Graphics g) {
-		this(g, new GraphLayout());
+		this(g, new GraphLayout(), new ParameterSet());
 	}
 	
-    public GraphRenderer(Graphics g, SimpleLayout layout) {
+    public GraphRenderer(Graphics g, SimpleLayout layout, ParameterSet params) {
     	GraphSketcher s = new GraphSketcher(layout);
     	s.addVertexGenerator(new VertexShapeGenerator());
 //    	s.addVertexGenerator(new VertexLabelGenerator()); // XXX FIXME

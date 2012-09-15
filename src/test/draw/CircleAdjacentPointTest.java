@@ -52,7 +52,7 @@ public class CircleAdjacentPointTest extends BaseDrawTest {
         Image image = makeBlankImage(w, h);
         Graphics2D g = (Graphics2D) image.getGraphics();
         g.setColor(Color.BLACK);
-        GraphRenderer renderer = new GraphRenderer(g, layout);
+        GraphRenderer renderer = new GraphRenderer(g, layout, params);
         renderer.render(circle, new Rectangle2D.Double(cw / 2, ch / 2, cw, ch));
         ImageIO.write((RenderedImage) image, "PNG", getFile(OUT_DIR, "test.png"));
     }

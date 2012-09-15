@@ -341,7 +341,7 @@ public class HexLatticeCyclesTest extends LatticeTest {
         draw(lattice, 3, 2, g);
         
         g.setColor(Color.RED);
-        GraphRenderer renderer = new GraphRenderer(g, new NullLayout(rep));
+        GraphRenderer renderer = new GraphRenderer(g, new NullLayout(rep), params);
         renderer.render(null, new Rectangle2D.Double(0, 0, w, h));
         
 //        g.setColor(Color.GREEN);

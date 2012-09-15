@@ -28,7 +28,8 @@ public class GeneratedGraphsTest {
 		for (Graph graph : GraphFileReader.readAll(inputDir)) {
 			BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_BYTE_GRAY);
 			Graphics2D g = (Graphics2D) image.getGraphics();
-			GraphRenderer renderer = new GraphRenderer(g, new ConcentricCircularLayout(new ParameterSet()));
+			ParameterSet params = new ParameterSet();
+			GraphRenderer renderer = new GraphRenderer(g, new ConcentricCircularLayout(params), params);
 			g.setColor(Color.WHITE);
 			g.fillRect(0, 0, w, h);
 			try {

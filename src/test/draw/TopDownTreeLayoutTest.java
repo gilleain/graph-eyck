@@ -56,7 +56,7 @@ public class TopDownTreeLayoutTest {
         
         Rectangle2D canvas  = new Rectangle2D.Double(0, 0, w, h);
         // XXX - params
-        GraphRenderer renderer = new GraphRenderer(g, layout);
+        GraphRenderer renderer = new GraphRenderer(g, layout, new ParameterSet());
         renderer.render(tree, canvas);
         ImageIO.write(image, "PNG", new File(dir, filename));
     }
@@ -101,7 +101,7 @@ public class TopDownTreeLayoutTest {
                     colorMap.put(new Vertex(i), Color.BLACK);
                 }
             }
-            GraphRenderer renderer = new GraphRenderer(g, layout);
+            GraphRenderer renderer = new GraphRenderer(g, layout, new ParameterSet());
             renderer.render(tree, canvas);	// XXX colors
             ImageIO.write((RenderedImage)image, "PNG", outFile);
             count++;

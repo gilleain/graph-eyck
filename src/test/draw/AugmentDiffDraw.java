@@ -42,7 +42,7 @@ public class AugmentDiffDraw extends BaseDrawTest {
         graphics.setColor(Color.BLACK);
         
         GraphLayout layout = new GraphLayout(params);
-        GraphRenderer renderer = new GraphRenderer(graphics, layout);
+        GraphRenderer renderer = new GraphRenderer(graphics, layout, params);
         renderer.render(g, new Rectangle2D.Double(0, 0, w, h));
         ImageIO.write((RenderedImage) image, "PNG", getFile(new File(OUT_DIR, subdir), filename));
     }

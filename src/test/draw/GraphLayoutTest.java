@@ -45,7 +45,7 @@ public class GraphLayoutTest extends BaseDrawTest {
         Graphics2D graphics = (Graphics2D) image.getGraphics();
         graphics.setColor(Color.BLACK);
         GraphLayout layout = new GraphLayout(params);
-        GraphRenderer renderer = new GraphRenderer(graphics, layout);
+        GraphRenderer renderer = new GraphRenderer(graphics, layout, params);
         Rectangle2D canvas = new Rectangle2D.Double(0, 0, w, h);
         renderer.render(g, canvas);
         ImageIO.write((RenderedImage) image, "PNG", getFile(new File(OUT_DIR, subdir), filename));
