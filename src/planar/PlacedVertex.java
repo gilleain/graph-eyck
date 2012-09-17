@@ -22,7 +22,9 @@ public class PlacedVertex {
 	}
 	
 	public String toString() {
-		return vertex + "@" + point;
+		double x = Math.round(point.getX());
+		double y = Math.round(point.getX());
+		return vertex + "@[" + x + ", " + y + "]";
 	}
 
 }

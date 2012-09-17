@@ -92,7 +92,9 @@ public class RadialTreeLayout implements SimpleLayout {
 //            System.out.println("current angle " + Math.round(Math.toDegrees(currentAngle)) + 
 //                               " for " + neighbour);
             Point2D nextPoint = makeNextPoint(ppV, currentAngle);
-            representation.addEdge(new Edge(pV, new Vertex(neighbour)));
+            Vertex neighbourVertex = new Vertex(neighbour);
+            representation.addPoint(neighbourVertex, nextPoint);
+            representation.addEdge(new Edge(pV, neighbourVertex));
             layout(tree, neighbour, index, nextPoint, representation);
         }
     }

@@ -43,7 +43,7 @@ public class GraphRenderer extends AbstractRenderer<Graph> {
 	@Override
 	public void render(Graph model, Rectangle2D canvas) {
 		IDiagramElement diagram = (IDiagramElement) sketcher.sketch(model);
-		DiagramPrinter.print(diagram);
+//		DiagramPrinter.print(diagram);
 		painter.paint(diagram, canvas);
 	}
 
