@@ -42,7 +42,7 @@ public class TopDownTreeLayout implements SimpleLayout {
     
     public Representation layout(Graph tree, Rectangle2D canvas) {
         representation = new Representation();
-        double rootLabel = params.get("rootLabel");	// XXX
+        double rootLabel = params.getDouble("rootLabel");	// XXX
         int root;
         if (rootLabel == 1) {	// XXX very wrong!
         	root = TreeCenterFinder.findUniqueCenter(tree);

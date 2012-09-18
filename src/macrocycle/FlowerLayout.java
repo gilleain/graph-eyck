@@ -20,7 +20,7 @@ public class FlowerLayout {
     
     public Representation layout(Partition partition, Rectangle2D canvas) {
         System.out.println("layout of " + partition);
-        double border = params.get("border");
+        double border = params.getDouble("border");
 
         double w = canvas.getWidth();
         double h = canvas.getHeight();

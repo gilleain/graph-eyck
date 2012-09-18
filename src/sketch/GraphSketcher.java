@@ -62,17 +62,17 @@ public class GraphSketcher extends AbstractArtist implements Sketcher<Graph, IDi
 		Representation rep = layout.layout(graph, canvas);
 		System.out.println(rep);
 		IDiagramElement root = new ElementList();
-		for (PlacedVertex v : rep.getPlacedVertices()) {
-			System.out.println(v);
-			for (IGenerator<PlacedVertex> genV : vertexGenerators) {
-				root.add(genV.generate(v));
-			}
-		}
 		for (PlacedEdge e : rep.getPlacedEdges()) {
 			System.out.println(e);
 			for (IGenerator<PlacedEdge> genE : edgeGenerators) {
 				IDiagramElement edgeElements = genE.generate(e);
 				root.add(edgeElements);
+			}
+		}
+		for (PlacedVertex v : rep.getPlacedVertices()) {
+			System.out.println(v);
+			for (IGenerator<PlacedVertex> genV : vertexGenerators) {
+				root.add(genV.generate(v));
 			}
 		}
 		return root;

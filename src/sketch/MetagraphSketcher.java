@@ -20,29 +20,18 @@ public class MetagraphSketcher implements Sketcher<Metagraph, List<IDiagramEleme
 	
 	private GraphSketcher subGraphSketcher;
 	
-	public MetagraphSketcher(SimpleLayout topLevelLayout, SimpleLayout subLevelLayout) {
-		graphSketcher = new GraphSketcher(topLevelLayout, getTopLevelParams());
+	public MetagraphSketcher(ParameterSet topLevelParams, SimpleLayout topLevelLayout, 
+						     ParameterSet subLevelParams, SimpleLayout subLevelLayout) {
+		graphSketcher = new GraphSketcher(topLevelLayout, topLevelParams);
 		graphSketcher.addVertexGenerator(new VertexShapeGenerator());
 		graphSketcher.addEdgeGenerator(new EdgeGenerator());
 		
-		subGraphSketcher = new GraphSketcher(subLevelLayout, getSubLevelParams());
+		subGraphSketcher = new GraphSketcher(subLevelLayout, subLevelParams);
 		subGraphSketcher.addVertexGenerator(new VertexShapeGenerator());
 		subGraphSketcher.addVertexGenerator(new VertexLabelGenerator());
 		subGraphSketcher.addEdgeGenerator(new EdgeGenerator());
 	}
 	
-	private ParameterSet getSubLevelParams() {
-		ParameterSet params = new ParameterSet();
-		params.set("vertexRadius", 1);
-		return params;
-	}
-
-	private ParameterSet getTopLevelParams() {
-		ParameterSet params = new ParameterSet();
-		params.set("vertexRadius", 8);
-		return params;	
-	}
-
 	@Override
 	public List<IDiagramElement> sketch(Metagraph metagraph) {
 		Graph metagraphGraph = metagraph.getMetagraph();

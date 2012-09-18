@@ -147,7 +147,7 @@ public class RadialTreeLayout implements SimpleLayout {
     }
     
     private Point2D makeNextPoint(Point2D point, double currentAngle) {
-        double edgeLen = params.get("edgeLength");
+        double edgeLen = params.getDouble("edgeLength");
         double x = point.getX() + (edgeLen * Math.cos(currentAngle));
         double y = point.getY() + (edgeLen * Math.sin(currentAngle));
         return new Point2D.Double(x, y);
@@ -165,7 +165,7 @@ public class RadialTreeLayout implements SimpleLayout {
 
     private void layoutFromCenterPair(
             Graph tree, int centerIndexA, int centerIndexB, Point2D centerPoint, Representation rep) {
-        double edgeLen = params.get("edgeLength");
+        double edgeLen = params.getDouble("edgeLength");
         
         double centerX = centerPoint.getX();
         double centerY = centerPoint.getY();

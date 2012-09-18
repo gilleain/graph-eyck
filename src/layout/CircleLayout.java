@@ -32,7 +32,7 @@ public class CircleLayout implements SimpleLayout {
 
 	public Representation layout(Graph graph, Rectangle2D canvas) {
 		Representation repr = new Representation();
-		double border = params.get("border");
+		double border = params.getDouble("border");
 		double w = canvas.getWidth();
 		double h = canvas.getHeight();
 		double r = (Math.min(w, h) - border) / 2; 

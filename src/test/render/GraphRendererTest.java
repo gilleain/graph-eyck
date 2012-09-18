@@ -27,6 +27,7 @@ public class GraphRendererTest extends BaseDrawTest {
 		Image img = makeBlankImage(w, h);
 		Graphics g = img.getGraphics();
 		params.set("vertexRadius", 2);
+		params.set("fillVertex", 1);
 		GraphRenderer renderer = new GraphRenderer(g, layout, params);
 		renderer.render(graph, new Rectangle2D.Double(0, 0, w, h));
 		ImageIO.write((RenderedImage)img, "PNG", getFile(OUT_DIR, filename + ".png"));

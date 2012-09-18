@@ -155,7 +155,7 @@ public class GraphLayout implements SimpleLayout {
         Point2D pV = rep.getPoint(articulationVertex);
         Point2D pA = rep.getPoint(connected.get(0));
         Point2D pB = rep.getPoint(connected.get(1));
-        double edgeLen = params.get("edgeLength");
+        double edgeLen = params.getDouble("edgeLength");
         
         // XXX - this is not the center of the tree, but the start point!
         return getOpposingPoint(pV, pA, pB, edgeLen);
@@ -198,7 +198,7 @@ public class GraphLayout implements SimpleLayout {
 
     private double getRadiusForBlock(int blockIndex, GraphEmbedding embedding) {
         int outerCycleSize = embedding.getBlockEmbedding(blockIndex).getExternalFace().vsize();
-        double edgeLen = params.get("edgeLength");
+        double edgeLen = params.getDouble("edgeLength");
         return edgeLen / Math.sin(Math.toRadians(360 / (2 * outerCycleSize)));
     }
    

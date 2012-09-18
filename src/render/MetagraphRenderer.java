@@ -1,5 +1,6 @@
 package render;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
@@ -27,21 +28,37 @@ public class MetagraphRenderer extends AbstractRenderer<Metagraph> {
 	
 	public MetagraphRenderer(Graphics graphics) {
 		painter = new ListAWTPainter(graphics, false);
+		ParameterSet topLevelParams = getTopLevelParams();
+		ParameterSet subLevelParams = getSubLevelParams();
 		metagraphSketcher = new MetagraphSketcher(
-								new TopDownTreeLayout(getTopLevelParams()),
-								new GraphLayout(getSubLevelParams()));
+								topLevelParams,
+								new TopDownTreeLayout(topLevelParams),
+								subLevelParams,
+								new GraphLayout(subLevelParams));
 	}
 	
 	private ParameterSet getSubLevelParams() {
 		ParameterSet params = new ParameterSet();
+		params.set("vertexRadius", 1);
 		params.set("edgeLength", 8);
+		
+		params.set("fillVertex", true);
+		params.set("vertexFillColor", Color.WHITE);
+		params.set("outlineVertex", true);
+		params.set("vertexOutlineColor", Color.BLACK);
 		return params;
 	}
 
 	private ParameterSet getTopLevelParams() {
 		ParameterSet params = new ParameterSet();
+		params.set("vertexRadius", 8);
 		params.set("edgeLength", 15);
 		params.set("rootLabel", 0);
+		
+		params.set("fillVertex", true);
+		params.set("vertexFillColor", Color.WHITE);
+		params.set("outlineVertex", true);
+		params.set("vertexOutlineColor", Color.BLACK);
 		return params;
 	}
 
