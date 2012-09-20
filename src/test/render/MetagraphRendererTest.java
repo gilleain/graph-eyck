@@ -22,8 +22,8 @@ public class MetagraphRendererTest extends BaseDrawTest {
 	
 	@Test
 	public void basicTest() throws IOException {
-		int w = 600;
-		int h = 600;
+		int w = 900;
+		int h = 900;
 		
 		Metagraph metagraph = new Metagraph();
 		metagraph.addSubgraph(new Graph("0:1,0:2,1:2"));

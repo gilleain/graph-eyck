@@ -56,7 +56,7 @@ public class MetagraphRenderer extends AbstractRenderer<Metagraph> {
 		params.set("rootLabel", 0);
 		
 		params.set("fillVertex", true);
-		params.set("vertexFillColor", Color.WHITE);
+		params.set("vertexFillColor", Color.LIGHT_GRAY);
 		params.set("outlineVertex", true);
 		params.set("vertexOutlineColor", Color.BLACK);
 		return params;
